@@ -9,16 +9,15 @@ jobs:
       - image: circleci/openjdk:8-jdk
     steps:
       - checkout
-      
-  heroku_deploy_rewiew_app:
+  heroku_deploy_review_app:
     executor: heroku/default
-    steps: 
+    steps:
       - checkout
       - heroku/deploy-via-git:
           app-name: $HEROKU_APP_NAME
-          api-key:  $HEROKU_API_KEY
+          api-key: $HEROKU_API_KEY
 
 workflows:
   heroku_deploy:
     jobs:
-      -heroku/deploy-via-git
+      - heroku/deploy-via-git
