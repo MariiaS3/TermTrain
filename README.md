@@ -1,7 +1,7 @@
 # TermTrain
 
 TermTrain is a web application designed and written for my BA thesis. Now I want to develop this, add some tests, security and deploy it on Heroku.
-Interfejsem dla tego zaplecza jest repozytorium TermTrain-client
+The frontend for this backend is the TermTrain-client repository
 
 <h1>General info</h1>
 The main goal of the work is to create a didactic application that imitates the behavior of the command line. This app will help new users learn how to use Linux terminal commands.
