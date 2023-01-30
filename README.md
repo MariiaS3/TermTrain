@@ -4,7 +4,7 @@ TermTrain is a web application designed and written for my BA thesis. Now I want
 Interfejsem dla tego zaplecza jest repozytorium TermTrain-client
 
 <h1>General info</h1>
-The main goal of the work was to create a didactic application imitating the behavior of the command line. This app will help new users learn how to use Linux terminal commands.
+The main goal of the work is to create a didactic application that imitates the behavior of the command line. This app will help new users learn how to use Linux terminal commands.
 
 <h2>TODO's:</h2>
 <ul>
