@@ -34,15 +34,20 @@ they could also leave their comments under selected questions.
 </ul>
 
 <h2>Technologies</h2>
+
 <h4>Backend</h4>
   
 ```
-  * Java: 17
+  * Java
   * Spring Boot
   * JPA
   * Hibernate
+  * Flayway
+  * Lombok
+  * Swagger
   * Mockito
   * JUnit
+  * Assertj
 ```
   
   <h4>Frontend</h4>
