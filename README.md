@@ -50,6 +50,8 @@ they could also leave their comments under selected questions.
 ```
   * JavaScript
   * React
+  * MUI
+  * Redux
 ```
   
   <h4>Database</h4>
