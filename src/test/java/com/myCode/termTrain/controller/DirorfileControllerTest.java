@@ -1,9 +1,8 @@
 package com.myCode.termTrain.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,9 +10,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mock.web.MockHttpServletRequest;
 
 import com.myCode.termTrain.dto.DirorfileDto;
+import com.myCode.termTrain.dto.FileRequest;
 import com.myCode.termTrain.service.DirorfileService;
 
 import static org.mockito.ArgumentMatchers.anyString;
@@ -33,7 +32,7 @@ public class DirorfileControllerTest {
     void shouldRetornDirOrFileWhenGetDirOrFileByNameColled(){
         List<DirorfileDto> dirorfileDtos = new ArrayList<>();
         dirorfileDtos.add(getDirDto());
-        when(dirorfileService.getDirFileByName(anyString())).thenReturn(dirorfileDtos);
+        when(dirorfileService.getByName(anyString())).thenReturn(dirorfileDtos);
         ResponseEntity<List<DirorfileDto>> dEntity = dirorfileController.getDirFileByName("testdir");
         assertThat(dEntity).isNotNull();
         assertThat(dEntity.getBody().size()).isEqualTo(1);
@@ -43,27 +42,27 @@ public class DirorfileControllerTest {
     void shouldRetornDirOrFileWhenGetDirOrFileByPathColled(){
         List<DirorfileDto> dirorfileDtos = new ArrayList<>();
         dirorfileDtos.add(getDirDto());
-        when(dirorfileService.getDirFileByPath(anyString())).thenReturn(dirorfileDtos);
-
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setRequestURI("/api/v1/path//testfolder");
-        ResponseEntity<List<DirorfileDto>> dEntity = dirorfileController.getDirFileByPath(request);
+        when(dirorfileService.getByPath(anyString())).thenReturn(dirorfileDtos);
+        ResponseEntity<List<DirorfileDto>> dEntity = dirorfileController.getDirFileByPath("-testfolder");
         assertThat(dEntity).isNotNull();
         assertThat(dEntity.getBody().size()).isEqualTo(1);
     }
 
     @Test
     void shouldRetornDirOrFileWhenGetDirOrFileByNameAndPathColled(){
-        DirorfileDto dirorfileDto = getDirDto();
-        when(dirorfileService.getDirFileByNameAndPath(anyString(), anyString())).thenReturn(dirorfileDto);
+        DirorfileDto dirorfileDto = getFileDto();
+        when(dirorfileService.getByPathAndName(anyString(), anyString())).thenReturn(dirorfileDto);
         
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setRequestURI("/api/v1/path-and-name//testfolder/testdir");
-        ResponseEntity<DirorfileDto> dEntity = dirorfileController.getDirFileByNameAndPath(request);
+        FileRequest file =  new FileRequest("test.txt","/api/v1/path-name/-testdir-");
+        ResponseEntity<DirorfileDto> dEntity = dirorfileController.getDirFileByNameAndPath(file);
         assertThat(dEntity).isNotNull();
     }
 
     private DirorfileDto getDirDto(){
-        return DirorfileDto.builder().id(1).path("/testfolder").name("testdir").link(2).permisions("drwxr-xr-x").username("root").groupname("group").isDirectory(true).size(4096).text("").time("Aug 7 10:51").build();
+        return DirorfileDto.builder().id(UUID.fromString("b5607d38-8fc1-43ef-b44e-34967083c80a")).path("/testfolder").name("testdir").link(2).permisions("drwxr-xr-x").username("root").groupname("group").isDirectory(true).size(4096).text("").time("Aug 7 10:51").build();
+    }
+
+    private DirorfileDto getFileDto(){
+        return DirorfileDto.builder().id(UUID.fromString("b5607d38-8fc1-43ef-b44e-34967083c80a")).path("test.txt").name("/testdir").link(1).permisions("-rw-r--r--").username("root").groupname("group").isDirectory(false).size(4096).text("some string").time("Aug 7 10:51").build();
     }
 }

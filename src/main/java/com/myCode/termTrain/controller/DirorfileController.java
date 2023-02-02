@@ -1,9 +1,6 @@
 package com.myCode.termTrain.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.myCode.termTrain.dto.DirorfileDto;
+import com.myCode.termTrain.dto.FileRequest;
 import com.myCode.termTrain.model.Dirorfile;
 import com.myCode.termTrain.service.DirorfileService;
 
@@ -26,7 +24,7 @@ import io.swagger.annotations.ApiResponses;
 
 @Api(value = "TermTrain Api", tags = "TermTrain Api",produces = "aplication/json")
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("/api/v1")
 public class DirorfileController {
 
     @Autowired
@@ -59,7 +57,7 @@ public class DirorfileController {
     })
     @GetMapping("/name/{name}")
     public ResponseEntity<List<DirorfileDto>> getDirFileByName(@PathVariable("name") String name){
-        List<DirorfileDto> dirFileDtos = dirFileService.getDirFileByName(name);
+        List<DirorfileDto> dirFileDtos = dirFileService.getByName(name);
         return ResponseEntity.ok(dirFileDtos);
     }
 
@@ -70,20 +68,10 @@ public class DirorfileController {
         @ApiResponse(code = 404, message = "not found resource")
 
     })
-    @GetMapping("/path-and-name/**")
-    public ResponseEntity<DirorfileDto> getDirFileByNameAndPath( HttpServletRequest link){
-        System.out.println(link);
-        int n = link.getRequestURI().split(link.getContextPath() + "/").length;
-        String name = link.getRequestURI().split(link.getContextPath() + "/")[n-1];
-        String temp = link.getRequestURI().split(link.getContextPath() + "/path-and-name/")[1];
-        String path ="/";
-        for(int i=1; i<temp.split("/").length-1; i++){
-            path += temp.split("/")[i];
-            if(i<temp.split("/").length-2){
-                path += "/";
-            }
-        }
-        DirorfileDto dirFileDto = dirFileService.getDirFileByNameAndPath(name, path);
+    @GetMapping("/path-name/{file}")
+    public ResponseEntity<DirorfileDto> getDirFileByNameAndPath( @RequestBody FileRequest file){
+        String path = file.getPath().replace('-', '/');
+        DirorfileDto dirFileDto = dirFileService.getByPathAndName(path, file.getName());
         return ResponseEntity.ok(dirFileDto);
     }
 
@@ -94,10 +82,10 @@ public class DirorfileController {
         @ApiResponse(code = 404, message = "not found resource")
 
     })
-    @GetMapping("/path/**")
-    public ResponseEntity<List<DirorfileDto>> getDirFileByPath(HttpServletRequest path){
-        List<DirorfileDto> dirFileDtos = dirFileService.getDirFileByPath(path.getRequestURI()
-        .split(path.getContextPath() + "/path/")[1]);
+    @GetMapping("/path/{path}")
+    public ResponseEntity<List<DirorfileDto>> getDirFileByPath(@PathVariable("path") String path){
+        String temp = path.replace('-', '/');
+        List<DirorfileDto> dirFileDtos =  dirFileService.getByPath(temp); 
         return ResponseEntity.ok(dirFileDtos);
     }
 }

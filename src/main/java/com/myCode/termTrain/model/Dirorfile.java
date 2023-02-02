@@ -1,5 +1,7 @@
 package com.myCode.termTrain.model;
 
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,8 +23,8 @@ import lombok.NoArgsConstructor;
 public class Dirorfile {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")
+    private UUID id;
 
     @NotNull
     @Column

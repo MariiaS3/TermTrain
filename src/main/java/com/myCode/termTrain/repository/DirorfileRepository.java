@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.myCode.termTrain.model.Dirorfile;
 
 public interface DirorfileRepository extends JpaRepository<Dirorfile, Integer>{
-    List<Dirorfile> findDirorfileByName(String name);
-    List<Dirorfile> findDirorfileByPath(String path);
-    Dirorfile findDirorfileByNameAndPath(String name, String path);
+    List<Dirorfile> findByName(String name);
+    List<Dirorfile> findByPath(String path);
+    Dirorfile findByPathAndName(String path, String name);
 }

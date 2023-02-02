@@ -23,27 +23,27 @@ public class DirorfileRepositoryTest {
 
 
     @Test
-    @Sql(scripts = {"classpath:InsertInitialDirorfileRecordForTest.sql"})
+    @Sql(scripts = {"classpath:Insert_data.sql"})
     void shouldReturnDirsOrFilesByName(){
-        List<Dirorfile> dirsbyname = dirFileRepository.findDirorfileByName("testdir");
-        List<Dirorfile> filesbyname = dirFileRepository.findDirorfileByName("testfile.txt");
+        List<Dirorfile> dirsbyname = dirFileRepository.findByName("testdir");
+        List<Dirorfile> filesbyname = dirFileRepository.findByName("testfile.txt");
         Assertions.assertEquals(dirsbyname.size(), 1);
         Assertions.assertEquals(filesbyname.size(), 1);
     }
 
     @Test
-    @Sql(scripts = {"classpath:InsertInitialDirorfileRecordForTest.sql"})
+    @Sql(scripts = {"classpath:Insert_data.sql"})
     void shouldReturnDirsAndFilesByPath(){
-        List<Dirorfile> dirsAndfiles = dirFileRepository.findDirorfileByPath("/testfolder");
+        List<Dirorfile> dirsAndfiles = dirFileRepository.findByPath("/testfolder");
 
         Assertions.assertEquals(dirsAndfiles.size(), 2);
     }
 
     @Test
-    @Sql(scripts = {"classpath:InsertInitialDirorfileRecordForTest.sql"})
+    @Sql(scripts = {"classpath:Insert_data.sql"})
     void shouldReturnDirsAndFilesByPathAndName(){
-        Dirorfile dirName = dirFileRepository.findDirorfileByNameAndPath("testdir","/testfolder");
-        Dirorfile fileName = dirFileRepository.findDirorfileByNameAndPath("testfile.txt","/testfolder");
+        Dirorfile dirName = dirFileRepository.findByPathAndName("/testfolder", "testdir");
+        Dirorfile fileName = dirFileRepository.findByPathAndName("/testfolder", "testfile.txt");
 
         assertThat(dirName).isNotNull();
         assertThat(fileName).isNotNull();

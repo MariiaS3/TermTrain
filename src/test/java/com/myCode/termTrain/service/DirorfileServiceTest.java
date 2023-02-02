@@ -2,6 +2,7 @@ package com.myCode.termTrain.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,9 +37,9 @@ public class DirorfileServiceTest {
         Dirorfile dir = getDir();
         dirAndfile.add(dir);
         DirorfileDto dirDto = getDirDto();
-        when(dirorfileRepository.findDirorfileByName(anyString())).thenReturn(dirAndfile);
+        when(dirorfileRepository.findByName(anyString())).thenReturn(dirAndfile);
         when(modelMapper.map(dir, DirorfileDto.class)).thenReturn(dirDto);
-        List<DirorfileDto> dirDtos = dirorfileService.getDirFileByName("testdir");
+        List<DirorfileDto> dirDtos = dirorfileService.getByName("testdir");
         assertThat(dirDtos.size()).isEqualTo(1);
     }
 
@@ -48,9 +49,9 @@ public class DirorfileServiceTest {
         Dirorfile dir = getDir();
         dirAndfile.add(dir);
         DirorfileDto dirDto = getDirDto();
-        when(dirorfileRepository.findDirorfileByPath(anyString())).thenReturn(dirAndfile);
+        when(dirorfileRepository.findByPath(anyString())).thenReturn(dirAndfile);
         when(modelMapper.map(dir, DirorfileDto.class)).thenReturn(dirDto);
-        List<DirorfileDto> dirDtos = dirorfileService.getDirFileByPath("/testfolder");
+        List<DirorfileDto> dirDtos = dirorfileService.getByPath("/testfolder");
         assertThat(dirDtos.size()).isEqualTo(1);
     }
 
@@ -58,19 +59,19 @@ public class DirorfileServiceTest {
     void shouldReturnDirsOrFilesByNameAndPath(){
         Dirorfile dir = getDir();
         DirorfileDto dirDto = getDirDto();
-        when(dirorfileRepository.findDirorfileByNameAndPath(anyString(), anyString())).thenReturn(dir);
+        when(dirorfileRepository.findByPathAndName(anyString(), anyString())).thenReturn(dir);
         when(modelMapper.map(dir, DirorfileDto.class)).thenReturn(dirDto);
-        DirorfileDto DtoDir = dirorfileService.getDirFileByNameAndPath("testdir","/testfolder");
+        DirorfileDto DtoDir = dirorfileService.getByPathAndName("/testfolder", "testdir");
         assertThat(DtoDir).isNotNull();
     }
 
 
     private Dirorfile getDir(){
-        return Dirorfile.builder().id(1).path("/testfolder").name("testdir").link(2).permisions("drwxr-xr-x").username("root").groupname("group").isDirectory(true).size(4096).text("").time("Aug 7 10:51").build();
+        return Dirorfile.builder().id(UUID.fromString("b5607d38-8fc1-43ef-b44e-34967083c80a")).path("/testfolder").name("testdir").link(2).permisions("drwxr-xr-x").username("root").groupname("group").isDirectory(true).size(4096).text("").time("Aug 7 10:51").build();
     }
 
     private DirorfileDto getDirDto(){
-        return DirorfileDto.builder().id(1).path("/testfolder").name("testdir").link(2).permisions("drwxr-xr-x").username("root").groupname("group").isDirectory(true).size(4096).text("").time("Aug 7 10:51").build();
+        return DirorfileDto.builder().id(UUID.fromString("a335b2d8-f674-4d98-9867-b60a66efef62")).path("/testfolder").name("testdir").link(2).permisions("drwxr-xr-x").username("root").groupname("group").isDirectory(true).size(4096).text("").time("Aug 7 10:51").build();
     }
 }
 

@@ -1,5 +1,7 @@
 package com.myCode.termTrain.dto;
 
+import java.util.UUID;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -14,8 +16,8 @@ import lombok.NoArgsConstructor;
 @ApiModel(value = "DirFileDto", description = "all details about directory and files if it is not directory")
 public class DirorfileDto {
     
-    @ApiModelProperty(readOnly = true, value = "Integr", dataType = "Integer", example = "1", notes = "The database generated Integer for directory/file id", required = true)
-    private Integer id;
+    @ApiModelProperty(readOnly = true, value = "UUID", dataType = "UUID", example = "b5607d38-8fc1-43ef-b44e-34967083c80a", notes = "The database generated Integer for directory/file id", required = true)
+    private UUID id;
 
     @ApiModelProperty(readOnly = true, value = "String", dataType = "String", example = "(dir)(file.txt)", notes = "directory/file name", required = true)
     private String name;

@@ -30,18 +30,18 @@ public class DirorfileService {
         return dirFileRepository.save(dirFile);
     }
 
-    public List<DirorfileDto> getDirFileByName(String name){
-        List<Dirorfile> dirFiles = dirFileRepository.findDirorfileByName(name);
+    public List<DirorfileDto> getByName(String name){
+        List<Dirorfile> dirFiles = dirFileRepository.findByName(name);
         return dirFiles.stream().map(convertDirFileToDto()).collect(Collectors.toList());
     }
     
-    public List<DirorfileDto> getDirFileByPath(String path){
-        List<Dirorfile> dirFiles = dirFileRepository.findDirorfileByPath(path);
+    public List<DirorfileDto> getByPath(String path){
+        List<Dirorfile> dirFiles = dirFileRepository.findByPath(path);
         return dirFiles.stream().map(convertDirFileToDto()).collect(Collectors.toList());
     }
 
-    public DirorfileDto getDirFileByNameAndPath(String name, String path){
-        Dirorfile dirFile = dirFileRepository.findDirorfileByNameAndPath(name, path);
+    public DirorfileDto getByPathAndName(String path, String name){
+        Dirorfile dirFile = dirFileRepository.findByPathAndName(path, name);
         DirorfileDto dirFileDto = modelMapper.map(dirFile, DirorfileDto.class);
         return dirFileDto;
     }
