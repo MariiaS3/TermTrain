@@ -31,7 +31,7 @@ public class SwaggerConfig {
     private ApiInfo apiMetaData() {
         return new ApiInfo("TermTrain REST API",
                 "All api's for TermTrain aplication",
-                "1.0",
+                "2.0",
                 "term and condition url",
                 new Contact("TermTrain Admin", "https://.herokuapp.com",
                         "termtrain@gmail.com"),

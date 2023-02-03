@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -30,6 +31,12 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
         this.jwtRequestFilter = jwtRequestFilter;
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return  new BCryptPasswordEncoder(10);
+    }
+
+    //In this builder object, we configure the security information for user authentication.
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(daoAuthenticationProvider());
@@ -37,26 +44,31 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 
     private AuthenticationProvider daoAuthenticationProvider(){
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        // to load details about the user during authentication.
         provider.setUserDetailsService(userDetailsService);
         provider.setPasswordEncoder(passwordEncoder);
         return provider;
     }
     
+    //we can use the HttpSecuirty parameter object to set the authorization of URLs.
     @Override
     public void configure(HttpSecurity http) throws Exception{
-        http.csrf().disable()
+        // disabled cross-site request forgery(csrf) protection because i use jwt if i was not using jwt i would have to enable csrf
+        http.csrf().disable()   
         .sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
+        //adds a filter before the position of the specified filter class.
         .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
-        .authorizeRequests().antMatchers("/api/v1/login").permitAll()
+        //restricting access , public access, that is, anyone can access the PUBLIC_URL("/api/v1/login") endpoint without authentication.
+        .authorizeRequests().antMatchers("/api/v1/login").permitAll() 
+         //others endpoints with authentication
         .anyRequest().authenticated();
     }
 
     @Bean
     @Override
     protected AuthenticationManager authenticationManager() throws Exception {
-        // TODO Auto-generated method stub
         return super.authenticationManager();
     }
 

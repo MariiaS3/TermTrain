@@ -27,7 +27,8 @@ public class JwtUtil {
     private String createToken(Map<String, Object> claims, String username){
         return Jwts.builder().setClaims(claims).setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()+1000*60*60*24*7)) // time of expire
+                // time of expire
+                .setExpiration(new Date(System.currentTimeMillis()+1000*60*60*24))
                 //encode data using secret_key and HS256, and it only decode by secret_key 
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();

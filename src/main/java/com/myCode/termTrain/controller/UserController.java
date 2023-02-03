@@ -21,7 +21,7 @@ import com.myCode.termTrain.service.UserDetailService;
 import com.myCode.termTrain.service.UserService;
 
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("/api/v1")
 public class UserController {
     
     private final AuthenticationManager authenticationManager;
