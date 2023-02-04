@@ -3,10 +3,10 @@ package com.myCode.termTrain.model;
 import java.util.UUID;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,14 +17,15 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+@Entity
+public class Account {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "Integer")
+    private Integer id;
 
     private String name;
-    private String email;
+    private String username;
     private String password;
 
 }

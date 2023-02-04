@@ -45,4 +45,9 @@ public class DirorfileService {
         DirorfileDto dirFileDto = modelMapper.map(dirFile, DirorfileDto.class);
         return dirFileDto;
     }
+
+    
+    // public void delete(Dirorfile dirorfile){
+    //     dirFileRepository.delete(dirorfile);        
+    // }
 }

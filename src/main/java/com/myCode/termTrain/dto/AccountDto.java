@@ -13,13 +13,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UserDto {
-    private UUID id;
+public class AccountDto {
+    private Integer id;
 
     @NotNull
     private String name;
     @NotNull
-    private String email;
+    private String username;
     @NotNull
     private String password;
 }

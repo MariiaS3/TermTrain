@@ -1,7 +1,5 @@
 package com.myCode.termTrain.controller;
 
-import java.util.UUID;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,23 +14,23 @@ import org.springframework.web.bind.annotation.RestController;
 import com.myCode.termTrain.config.JwtUtil;
 import com.myCode.termTrain.dto.AuthenticationRequest;
 import com.myCode.termTrain.dto.AuthenticationResponse;
-import com.myCode.termTrain.dto.UserDto;
-import com.myCode.termTrain.service.UserDetailService;
-import com.myCode.termTrain.service.UserService;
+import com.myCode.termTrain.dto.AccountDto;
+import com.myCode.termTrain.service.AccountDetailService;
+import com.myCode.termTrain.service.AccountService;
 
 @RestController
 @RequestMapping("/api/v1")
-public class UserController {
+public class AccountController {
     
     private final AuthenticationManager authenticationManager;
-    private final UserDetailService userDetailService;
+    private final AccountDetailService userDetailService;
     private final JwtUtil jwtUtil;
-    private final UserService userService;
+    private final AccountService userService;
 
 
 
-    public UserController(AuthenticationManager authenticationManager, UserDetailService userDetailService,
-            JwtUtil jwtUtil, UserService userService) {
+    public AccountController(AuthenticationManager authenticationManager, AccountDetailService userDetailService,
+            JwtUtil jwtUtil, AccountService userService) {
         this.authenticationManager = authenticationManager;
         this.userDetailService = userDetailService;
         this.jwtUtil = jwtUtil;
@@ -55,10 +53,13 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UUID> addUser(@RequestBody UserDto userDto){
+    public ResponseEntity<Integer> addUser(@RequestBody AccountDto userDto){
 
-        UUID id = userService.addUser(userDto);
-
+        System.out.println("--------------------------------------------------------------");
+        System.out.println(userDto.getUsername());
+        System.out.println("--------------------------------------------------------------");
+        
+        Integer id = userService.addUser(userDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(id);
     }
     

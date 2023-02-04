@@ -1,3 +1,9 @@
+-- insert into account(id , name, username,password) values (1,'peter','peter@gmail.com', 'password' );
+
+insert into forum(id ,username ,title) values (1,'peter@gmail.com','first forum item' );
+insert into chatMessage(id, username ,message, forum_id) values (1,'peter@gmail.com','jakas wiadomosc 1', 1 );
+insert into chatMessage(id, username ,message, forum_id) values (2,'peter@gmail.com','jakas wiadomosc 2', 1 );
+
 insert into dirorfile(id ,path ,name  ,link  ,permisions ,username  ,groupname ,is_directory ,size ,text ,time ) values (3,'/', 'home', 3, 'drwxr-xr-x','root', 'root','true', 4096, '', 'Jul 31 22:29');
 insert into dirorfile(id ,path ,name  ,link  ,permisions ,username  ,groupname ,is_directory ,size ,text ,time ) values (4,'/', 'bin', 1, 'lrwxrwxrwx','root', 'root','true', 9, '', 'Jun  9 09:53');
 insert into dirorfile(id ,path ,name  ,link  ,permisions ,username  ,groupname ,is_directory ,size ,text ,time ) values (5,'/', 'boot', 5, 'drwxr-xr-x','root', 'root','true', 4096, '', 'Jul 31 22:32');
@@ -37,3 +43,6 @@ insert into dirorfile(id ,path ,name  ,link  ,permisions ,username  ,groupname ,
 insert into dirorfile(id ,path ,name  ,link  ,permisions ,username  ,groupname ,is_directory ,size ,text ,time ) values (39,'/home/', 'file.txt', 1, '-rw-r--r--','', '','false', 0, 'hello,how are you', 'Jun 20 16:27');
 insert into dirorfile(id ,path ,name  ,link  ,permisions ,username  ,groupname ,is_directory ,size ,text ,time ) values (40,'/home/', 'test_file.txt', 1, '-rw-r--r--','', '','false', 0, 'hello orld!', 'Jun 25 10:00');
 insert into dirorfile(id ,path ,name  ,link  ,permisions ,username  ,groupname ,is_directory ,size ,text ,time ) values (41,'/home/', 'plik.txt', 1, '-rw-r--r--','', '','false', 0, 'Hello Dżimi', 'Aug  20 09:05');
+
+
+
