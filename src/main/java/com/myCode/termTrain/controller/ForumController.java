@@ -1,7 +1,6 @@
 package com.myCode.termTrain.controller;
 
 import java.util.List;
-import java.util.UUID;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,20 +42,20 @@ public class ForumController {
     }
 
     @PostMapping("/forum")
-    public ResponseEntity<UUID> addForum(@RequestBody Forum forum){
-        UUID id = forumService.save(forum);
+    public ResponseEntity<Integer> addForum(@RequestBody Forum forum){
+        Integer id = forumService.save(forum);
         return ResponseEntity.status(HttpStatus.CREATED).body(id);
     }
 
     @PostMapping("/forum/{id}")
-    public ResponseEntity<UUID> addChatMessage(@RequestBody ChatMessage chatMessage){
-        UUID id = chatMessageService.save(chatMessage);
+    public ResponseEntity<Integer> addChatMessage(@RequestBody ChatMessage chatMessage){
+        Integer id = chatMessageService.save(chatMessage);
         return ResponseEntity.status(HttpStatus.CREATED).body(id);
     }
 
     @GetMapping("/forum/{id}")
-    public ResponseEntity<?> getChatMessange(@PathVariable("id") String id){        
-        List<ChatMessageDto> chatMessages = chatMessageService.findByForumId(UUID.fromString(id));
+    public ResponseEntity<?> getChatMessange(@PathVariable("id") Integer id){        
+        List<ChatMessageDto> chatMessages = chatMessageService.findByForumId(id);
         return new ResponseEntity<>(chatMessages, HttpStatus.OK);
     }
     

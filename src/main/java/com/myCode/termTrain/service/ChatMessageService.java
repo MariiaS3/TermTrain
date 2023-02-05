@@ -1,7 +1,6 @@
 package com.myCode.termTrain.service;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -27,12 +26,12 @@ public class ChatMessageService {
         return message -> modelMapper.map(message, ChatMessageDto.class);
     }
 
-    public List<ChatMessageDto> findByForumId(UUID id){
+    public List<ChatMessageDto> findByForumId(Integer id){
         List<ChatMessage> chatMessages = chatMessageRepository.findByForumId(id);
         return chatMessages.stream().map(convertMessageToDto()).collect(Collectors.toList());
     }
 
-    public UUID save(ChatMessage  chatMessage){
+    public Integer save(ChatMessage  chatMessage){
         ChatMessage chatMsg = chatMessageRepository.saveAndFlush(chatMessage);
         return chatMsg.getId();
     }

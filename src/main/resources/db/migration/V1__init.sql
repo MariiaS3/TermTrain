@@ -22,14 +22,14 @@ create table  account (
 );
 
 create table forum (
-        id              BINARY(16) not null,
+        id             integer  not null auto_increment,
         username        varchar not null,
         title       varchar not null,
         primary key (id)
 );
 
 create table  chat_message (
-        id              BINARY(16) not null,
+        id              integer not null auto_increment,
         username        varchar not null,
         message       varchar not null,
         forum_id integer REFERENCES forum(id),

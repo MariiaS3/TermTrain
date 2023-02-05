@@ -1,7 +1,5 @@
 package com.myCode.termTrain.dto;
 
-import java.util.UUID;
-
 import com.myCode.termTrain.model.Forum;
 
 import lombok.AllArgsConstructor;
@@ -15,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ChatMessageDto {
  
-    private UUID id;
+    private Integer id;
 
     private String username;
     private String message;

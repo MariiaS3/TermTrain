@@ -1,7 +1,5 @@
 package com.myCode.termTrain.dto;
 
-import java.util.UUID;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Builder;
@@ -13,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ForumDto {
 
-    private UUID id;
+    private Integer id;
 
     private String username;
     private String title;
