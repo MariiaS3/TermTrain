@@ -25,5 +25,4 @@ public class ForumRepositoryTest {
         List<Forum> items = forumRepository.findAll();
         Assertions.assertEquals(items.size(), 1);
     }
-
 }
