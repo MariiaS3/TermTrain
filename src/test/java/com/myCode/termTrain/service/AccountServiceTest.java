@@ -16,18 +16,19 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-// import com.myCode.termTrain.dto.UserDto;
-// import com.myCode.termTrain.model.Account;
-// import com.myCode.termTrain.repository.AccountRepository;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import com.myCode.termTrain.dto.AccountDto;
+import com.myCode.termTrain.model.Account;
+import com.myCode.termTrain.repository.AccountRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class AccountServiceTest {
     
-    // @InjectMocks
-    // private AccountService userService;
+    @InjectMocks
+    private AccountService userService;
 
-    // @Mock
-    // private AccountRepository userRepository;
+    @Mock
+    private AccountRepository userRepository;
 
     @Mock
     private ModelMapper modelMapper;
@@ -37,55 +38,55 @@ public class AccountServiceTest {
 
     @Test
     public void sholdReturnUserIdWhenCalledToAddUser(){
-        // Integer id = UUID.randomUUID();
+        UUID id = UUID.randomUUID();
 
-        // when(userRepository.saveAndFlush(any())).thenReturn(getUser());
-        // when(modelMapper.map(any(), any())).thenReturn(getUser());
+        when(userRepository.saveAndFlush(any())).thenReturn(getUser(id));
+        when(modelMapper.map(any(), any())).thenReturn(getUser(id));
 
-        // Integer uuid = userService.addUser(getUserDto());
+        UUID uuid = userService.addUser(getUserDto());
 
-        // assertThat(uuid).isNotNull();
-        // assertThat(uuid).isEqualTo(1);
+        assertThat(uuid).isNotNull();
+        assertThat(uuid).isEqualTo(id);
     }
 
-    // private Account getUser(){
-    //     return Account.builder()
-    //             .password("password")
-    //             .id(1)
-    //             .name("username")
-    //             .email("example@gmail.com")
-    //             .build();
-    // }
+    private Account getUser(UUID id){
+        return Account.builder()
+                .password("password")
+                .id(id)
+                .name("username")
+                .username("example@gmail.com")
+                .build();
+    }
 
-    // private UserDto getUserDto(){
-    //     return UserDto.builder()
-    //             .password("password")
-    //             .id(1)
-    //             .name("username")
-    //             .email("example@gmail.com")
-    //             .build();
-    // }
+    private AccountDto getUserDto(){
+        return AccountDto.builder()
+                .password("password")
+                .id(UUID.randomUUID())
+                .name("username")
+                .username("example@gmail.com")
+                .build();
+    }
 
     @Test
     void shouldReturnUserWhenEmailIsExist() {
-        // UUID id = UUID.randomUUID();
+        UUID id = UUID.randomUUID();
 
-        // when(userRepository.findByEmail(anyString())).thenReturn(getUser());
-        // when(modelMapper.map(any(), any())).thenReturn(getUserDto());
+        when(userRepository.findByUsername(anyString())).thenReturn(getUser(id));
+        when(modelMapper.map(any(), any())).thenReturn(getUserDto());
 
-        // UserDto userDto = userService.getUserByEmail("example@gmail.com");
+        AccountDto userDto = userService.getUserByUsername("example@gmail.com");
 
-        // assertThat(userDto).isNotNull();
-        // assertThat(userDto.getName()).isEqualTo("username");
+        assertThat(userDto).isNotNull();
+        assertThat(userDto.getName()).isEqualTo("username");
     }
 
     @Test
     void shouldThrowErrorWhenEmailIsNotExist() {
         
-    //     when(userRepository.findByEmail(anyString())).thenThrow( new RuntimeException("error"));
+        when(userRepository.findByUsername(anyString())).thenThrow( new RuntimeException("error"));
 
-    //     assertThatThrownBy(() -> 
-    //     userService.getUserByEmail("example@gmail.com")).isInstanceOf(RuntimeException.class);
+        assertThatThrownBy(() -> 
+        userService.getUserByUsername("example@gmail.com")).isInstanceOf(RuntimeException.class);
 
     }
 }

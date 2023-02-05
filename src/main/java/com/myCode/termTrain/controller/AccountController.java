@@ -1,5 +1,7 @@
 package com.myCode.termTrain.controller;
 
+import java.util.UUID;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -53,13 +55,8 @@ public class AccountController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Integer> addUser(@RequestBody AccountDto userDto){
-
-        System.out.println("--------------------------------------------------------------");
-        System.out.println(userDto.getUsername());
-        System.out.println("--------------------------------------------------------------");
-        
-        Integer id = userService.addUser(userDto);
+    public ResponseEntity<UUID> addUser(@RequestBody AccountDto userDto){
+        UUID id = userService.addUser(userDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(id);
     }
     

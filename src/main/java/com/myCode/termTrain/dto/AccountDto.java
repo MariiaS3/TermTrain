@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class AccountDto {
-    private Integer id;
+    private UUID id;
 
     @NotNull
     private String name;

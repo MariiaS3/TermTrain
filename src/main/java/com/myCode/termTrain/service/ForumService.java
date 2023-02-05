@@ -1,6 +1,5 @@
 package com.myCode.termTrain.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
@@ -36,14 +35,14 @@ public class ForumService {
         return forum.stream().map(convertForumToDto()).collect(Collectors.toList());
     }
     
-    public ForumDto findById(Integer id){
+    public ForumDto findById(UUID id){
         Forum forum = forumRepository.findById(id).get();        
         return modelMapper.map(forum, ForumDto.class);
     }
 
-    public ForumDto save(Forum forum){
-        Forum forumTemp = forumRepository.save(forum);        
-        return modelMapper.map(forumTemp, ForumDto.class);
+    public UUID save(Forum forum){
+        Forum forumTemp = forumRepository.saveAndFlush(forum);        
+        return forumTemp.getId();
     }
 
     public void delete(Forum forum){

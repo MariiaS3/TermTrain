@@ -32,9 +32,9 @@ public class ChatMessageService {
         return chatMessages.stream().map(convertMessageToDto()).collect(Collectors.toList());
     }
 
-    public ChatMessageDto save(ChatMessage  chatMessage){
-        ChatMessage chatMsg = chatMessageRepository.save(chatMessage);
-        return modelMapper.map(chatMsg, ChatMessageDto.class);
+    public UUID save(ChatMessage  chatMessage){
+        ChatMessage chatMsg = chatMessageRepository.saveAndFlush(chatMessage);
+        return chatMsg.getId();
     }
 
     public void remove(ChatMessage  chatMessage){

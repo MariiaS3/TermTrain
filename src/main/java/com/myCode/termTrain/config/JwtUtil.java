@@ -42,6 +42,7 @@ public class JwtUtil {
         }
 
         String username = claims.getSubject();
+        // System.out.println( new UsernamePasswordAuthenticationToken( username, null, new ArrayList<>()));
         return new UsernamePasswordAuthenticationToken( username, null, new ArrayList<>());
 
     }

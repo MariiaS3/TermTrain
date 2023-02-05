@@ -2,22 +2,23 @@ package com.myCode.termTrain.controller;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.myCode.termTrain.dto.ChatMessageDto;
 import com.myCode.termTrain.dto.ForumDto;
 import com.myCode.termTrain.model.ChatMessage;
+import com.myCode.termTrain.model.Forum;
 import com.myCode.termTrain.service.ChatMessageService;
 import com.myCode.termTrain.service.ForumService;
 
@@ -41,23 +42,23 @@ public class ForumController {
         return ResponseEntity.ok(forumDtos);
     }
 
+    @PostMapping("/forum")
+    public ResponseEntity<UUID> addForum(@RequestBody Forum forum){
+        UUID id = forumService.save(forum);
+        return ResponseEntity.status(HttpStatus.CREATED).body(id);
+    }
+
+    @PostMapping("/forum/{id}")
+    public ResponseEntity<UUID> addChatMessage(@RequestBody ChatMessage chatMessage){
+        UUID id = chatMessageService.save(chatMessage);
+        return ResponseEntity.status(HttpStatus.CREATED).body(id);
+    }
+
     @GetMapping("/forum/{id}")
-    public ResponseEntity<List<ChatMessageDto>> getChatMessange(@PathVariable("id") Integer id){
-        ForumDto forumDtos = forumService.findById(id);
-        List<ChatMessage> messages  =  forumDtos.getChatMessages();
-        for (ChatMessage chatMessage : messages) {
-            System.out.print(chatMessage.getMessage());
-        }
-        List<ChatMessage> chatMessages = forumDtos.getChatMessages();
-        List<ChatMessageDto> chatMessageDtos = chatMessages.stream().map(convertMessageToDto()).collect(Collectors.toList());
-
-        return ResponseEntity.ok(chatMessageDtos);
+    public ResponseEntity<?> getChatMessange(@PathVariable("id") String id){        
+        List<ChatMessageDto> chatMessages = chatMessageService.findByForumId(UUID.fromString(id));
+        return new ResponseEntity<>(chatMessages, HttpStatus.OK);
     }
-
-    private Function<? super ChatMessage, ? extends ChatMessageDto> convertMessageToDto(){
-        return message -> modelMapper.map(message, ChatMessageDto.class);
-    }
-
     
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")

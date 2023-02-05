@@ -14,7 +14,7 @@ create table  dirorfile (
 );
 
 create table  account (
-        id          integer  auto_increment,
+        id          BINARY(16) not null,
         name        varchar not null,
         username       varchar not null,
         password    varchar not null,
@@ -22,14 +22,14 @@ create table  account (
 );
 
 create table forum (
-        id              integer not null,
+        id              BINARY(16) not null,
         username        varchar not null,
         title       varchar not null,
         primary key (id)
 );
 
-create table  chatMessage (
-        id              integer not null,
+create table  chat_message (
+        id              BINARY(16) not null,
         username        varchar not null,
         message       varchar not null,
         forum_id integer REFERENCES forum(id),

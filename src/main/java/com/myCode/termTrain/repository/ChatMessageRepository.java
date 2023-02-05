@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.myCode.termTrain.model.ChatMessage;
 
-public interface ChatMessageRepository extends JpaRepository<ChatMessage, Integer> {
+public interface ChatMessageRepository extends JpaRepository<ChatMessage, UUID> {
     List<ChatMessage> findByForumId(UUID id);
 }

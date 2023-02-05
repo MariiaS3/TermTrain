@@ -13,7 +13,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -61,6 +60,11 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // disabled cross-site request forgery(csrf) protection because i use jwt if i was not using jwt i would have to enable csrf
+      
+        // http.authorizeRequests().antMatchers("/h2-console/**").permitAll()
+        // .and().csrf().ignoringAntMatchers("/h2-console/**")
+        // .and().headers().frameOptions().sameOrigin();
+
         http.csrf().disable() 
         .cors().configurationSource(request ->{
             CorsConfiguration corsConfiguration = new CorsConfiguration();
@@ -81,6 +85,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
         .antMatchers("/api/v1/register").permitAll()
         //others endpoints with authentication
         .anyRequest().authenticated();
+    
+
     }
     
 }

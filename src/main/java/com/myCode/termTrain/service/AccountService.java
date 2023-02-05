@@ -1,6 +1,7 @@
 package com.myCode.termTrain.service;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,7 +24,7 @@ public class AccountService {
         this.modelMapper = modelMapper;
     }
 
-    public Integer addUser(AccountDto userDto){
+    public UUID addUser(AccountDto userDto){
 
         Account user = modelMapper.map(userDto, Account.class);
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));

@@ -1,5 +1,6 @@
 package com.myCode.termTrain.model;
 
+
 import java.util.UUID;
 
 import javax.persistence.Entity;
@@ -10,15 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.GenericGenerator;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 
 @Data
 @NoArgsConstructor
@@ -28,14 +27,15 @@ import lombok.NoArgsConstructor;
 public class ChatMessage {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "Integer")
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    private UUID id;
 
     private String username;
     private String message;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "forum_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "forum_id", referencedColumnName = "id", nullable = false)
     private Forum forum;
 
 }
