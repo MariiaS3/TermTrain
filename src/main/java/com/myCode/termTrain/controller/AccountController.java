@@ -19,8 +19,14 @@ import com.myCode.termTrain.dto.AccountDto;
 import com.myCode.termTrain.service.AccountDetailService;
 import com.myCode.termTrain.service.AccountService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @RestController
 @RequestMapping("/api/v1")
+@Api(value = "TermTrain Api", tags = "TermTrain Api", produces = "aplication/json")
 public class AccountController {
     
     private final AuthenticationManager authenticationManager;
@@ -38,6 +44,13 @@ public class AccountController {
         this.userService = userService;
     }
 
+    @ApiOperation(value = "User login", response =  AuthenticationResponse.class, produces = "aplication/json")  //about this endpoint
+    @ApiResponses(value = {
+        @ApiResponse(code = 200 , message = "Login succesful"),
+        @ApiResponse(code = 403 , message = "Accessing the resource you were trying to reach is forbidden"),
+        @ApiResponse(code = 400, message = "Username or password is incorect")
+
+    }) 
     @PostMapping("/login")
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequest request){
         String token ="";
@@ -53,8 +66,25 @@ public class AccountController {
         return ResponseEntity.ok(new AuthenticationResponse("Bearer "+token));
     }
 
+    @ApiOperation(value = "User login", response = UUID.class, produces = "aplication/json")  //about this endpoint
+    @ApiResponses(value = {
+        @ApiResponse(code = 201 , message = "Succesfully created"),
+        @ApiResponse(code = 403 , message = "Accessing the resource you were trying to reach is forbidden"),
+        @ApiResponse(code = 400, message = "This username already exist")
+
+    }) 
     @PostMapping("/register")
-    public ResponseEntity<UUID> addUser(@RequestBody AccountDto userDto){
+    public ResponseEntity<?> addUser(@RequestBody AccountDto userDto){
+  
+        try{
+            UserDetails user = userDetailService.loadUserByUsername(userDto.getUsername());
+            if(user!=null){
+                return ResponseEntity.badRequest().body("This username already exist"); 
+            }
+        }catch(Exception ex){
+            
+        }
+        
         UUID id = userService.addUser(userDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(id);
     }
