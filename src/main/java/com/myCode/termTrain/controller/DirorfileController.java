@@ -2,12 +2,14 @@ package com.myCode.termTrain.controller;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,9 +32,13 @@ public class DirorfileController {
     @Autowired
     private final DirorfileService dirFileService;
 
+    private final ModelMapper modelMapper;
 
-    public DirorfileController(DirorfileService dirFileService) {
+
+
+    public DirorfileController(DirorfileService dirFileService, ModelMapper modelMapper) {
         this.dirFileService = dirFileService;
+        this.modelMapper = modelMapper;
     }
 
     @ApiOperation(value = "add new file/dir", response =  DirorfileDto[].class, produces = "aplication/json")  //about this endpoint
@@ -42,10 +48,27 @@ public class DirorfileController {
         @ApiResponse(code = 404, message = "not found resource")
 
     })
-    @PostMapping("/add-new")
+    @PostMapping("/add-new-file")
     public ResponseEntity<?> addNewDirOrFile(@RequestBody Dirorfile dirFile){
-        Dirorfile dirOrFile = dirFileService.addNewDirOrFile(dirFile);
+        DirorfileDto dirOrFile = dirFileService.addNewDirOrFile(dirFile);
         return new ResponseEntity<>(dirOrFile, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/update-file/{id}")
+    public ResponseEntity<?> addNewDirOrFile(@PathVariable Integer id, @RequestBody Dirorfile dirFile){
+        DirorfileDto dir = dirFileService.findById(id);
+        Dirorfile dirOrfile = modelMapper.map(dir, Dirorfile.class);
+        dirOrfile.setName(dirFile.getName());
+        dirOrfile.setPath(dirFile.getPath());
+        dirOrfile.setText(dirFile.getText());
+        dirOrfile.setPermisions(dirFile.getPermisions());
+        dirOrfile.setSize(dirFile.getSize());
+        dirOrfile.setLink(dirFile.getLink());
+        dirOrfile.setTime(dirFile.getTime());
+        dirOrfile.setUsername(dirFile.getUsername());
+        dirOrfile.setGroupname(dirFile.getGroupname());
+        DirorfileDto dF = dirFileService.addNewDirOrFile(dirOrfile);
+        return ResponseEntity.ok(dF);
     }
 
     @ApiOperation(value = "get file/dir by name", response =  DirorfileDto[].class, produces = "aplication/json")  //about this endpoint

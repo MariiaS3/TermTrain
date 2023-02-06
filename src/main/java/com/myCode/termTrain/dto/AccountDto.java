@@ -2,8 +2,6 @@ package com.myCode.termTrain.dto;
 
 import java.util.UUID;
 
-import javax.validation.constraints.NotNull;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

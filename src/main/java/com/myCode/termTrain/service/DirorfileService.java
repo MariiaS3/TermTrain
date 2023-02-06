@@ -26,8 +26,14 @@ public class DirorfileService {
         return dirFile -> modelMapper.map(dirFile, DirorfileDto.class);
     }
 
-    public Dirorfile addNewDirOrFile(Dirorfile dirFile){
-        return dirFileRepository.save(dirFile);
+    public DirorfileDto addNewDirOrFile(Dirorfile dirFile){
+        Dirorfile dir = dirFileRepository.save(dirFile);
+        return modelMapper.map(dir, DirorfileDto.class);
+    }
+
+    public DirorfileDto findById(Integer id){
+        Dirorfile dir = dirFileRepository.findById(id).get();
+        return modelMapper.map(dir, DirorfileDto.class);
     }
 
     public List<DirorfileDto> getByName(String name){

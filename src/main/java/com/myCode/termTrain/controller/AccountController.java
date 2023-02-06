@@ -24,9 +24,9 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+@Api(value = "TermTrain Api", tags = "TermTrain Api", produces = "aplication/json")
 @RestController
 @RequestMapping("/api/v1")
-@Api(value = "TermTrain Api", tags = "TermTrain Api", produces = "aplication/json")
 public class AccountController {
     
     private final AuthenticationManager authenticationManager;
@@ -66,7 +66,7 @@ public class AccountController {
         return ResponseEntity.ok(new AuthenticationResponse("Bearer "+token));
     }
 
-    @ApiOperation(value = "User login", response = UUID.class, produces = "aplication/json")  //about this endpoint
+    @ApiOperation(value = "User register", response = UUID.class, produces = "aplication/json")  //about this endpoint
     @ApiResponses(value = {
         @ApiResponse(code = 201 , message = "Succesfully created"),
         @ApiResponse(code = 403 , message = "Accessing the resource you were trying to reach is forbidden"),
