@@ -40,17 +40,17 @@ public class AccountController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request){
-
+    public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequest request){
+        String token ="";
+        
         try{
+            UserDetails userdetails =  userDetailService.loadUserByUsername(request.getUsername());
+            token = jwtUtil.generateToken(userdetails);
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-        }catch(BadCredentialsException ex){
-            throw new RuntimeException("username or password is incorect");
+        }catch(Exception ex){
+            return ResponseEntity.badRequest().body("username or password is incorect");
         }
-
-        UserDetails userdetails =  userDetailService.loadUserByUsername(request.getUsername());
-        String token = jwtUtil.generateToken(userdetails);
-
+        
         return ResponseEntity.ok(new AuthenticationResponse("Bearer "+token));
     }
 

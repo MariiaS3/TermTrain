@@ -10,6 +10,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import com.myCode.termTrain.service.AccountDetailService;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -18,6 +20,11 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JwtUtil {
 
     private String SECRET_KEY = "secretKeySignWithHS256AlgorithmAndSecretKey";
+    private final  AccountDetailService userDetailService;
+
+    public JwtUtil(AccountDetailService userDetailService) {
+        this.userDetailService = userDetailService;
+    }
 
     public String generateToken(UserDetails userDetails){
         Map<String,Object> claims = new HashMap<>();
@@ -42,7 +49,12 @@ public class JwtUtil {
         }
 
         String username = claims.getSubject();
-        // System.out.println( new UsernamePasswordAuthenticationToken( username, null, new ArrayList<>()));
+        try{
+            UserDetails user = userDetailService.loadUserByUsername(username);
+        }catch(Exception ex){
+            return null;
+        }
+
         return new UsernamePasswordAuthenticationToken( username, null, new ArrayList<>());
 
     }
