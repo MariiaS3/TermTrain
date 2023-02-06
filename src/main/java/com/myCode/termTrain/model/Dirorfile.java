@@ -23,8 +23,8 @@ import lombok.NoArgsConstructor;
 public class Dirorfile {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "Integer")
+    private Integer id;
 
     @NotNull
     @Column

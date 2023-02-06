@@ -42,7 +42,7 @@ public class ForumControllerTest {
     @BeforeEach
     void setUpHeader(){
         String token = jwtUtil.generateToken(new User(
-            "peter@gmail.com", passwordEncoder.encode("password"), new ArrayList<>()
+            "test@gmail.com", passwordEncoder.encode("password"), new ArrayList<>()
         ));
 
         testRestTemplate.getRestTemplate().setInterceptors(

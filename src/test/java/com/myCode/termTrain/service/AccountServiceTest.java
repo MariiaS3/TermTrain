@@ -16,7 +16,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.myCode.termTrain.dto.AccountDto;
 import com.myCode.termTrain.model.Account;
 import com.myCode.termTrain.repository.AccountRepository;

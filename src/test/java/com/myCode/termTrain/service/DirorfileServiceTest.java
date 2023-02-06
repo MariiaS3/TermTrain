@@ -67,11 +67,11 @@ public class DirorfileServiceTest {
 
 
     private Dirorfile getDir(){
-        return Dirorfile.builder().id(UUID.fromString("b5607d38-8fc1-43ef-b44e-34967083c80a")).path("/testfolder").name("testdir").link(2).permisions("drwxr-xr-x").username("root").groupname("group").isDirectory(true).size(4096).text("").time("Aug 7 10:51").build();
+        return Dirorfile.builder().id(1).path("/testfolder").name("testdir").link(2).permisions("drwxr-xr-x").username("root").groupname("group").isDirectory(true).size(4096).text("").time("Aug 7 10:51").build();
     }
 
     private DirorfileDto getDirDto(){
-        return DirorfileDto.builder().id(UUID.fromString("a335b2d8-f674-4d98-9867-b60a66efef62")).path("/testfolder").name("testdir").link(2).permisions("drwxr-xr-x").username("root").groupname("group").isDirectory(true).size(4096).text("").time("Aug 7 10:51").build();
+        return DirorfileDto.builder().id(1).path("/testfolder").name("testdir").link(2).permisions("drwxr-xr-x").username("root").groupname("group").isDirectory(true).size(4096).text("").time("Aug 7 10:51").build();
     }
 }
 

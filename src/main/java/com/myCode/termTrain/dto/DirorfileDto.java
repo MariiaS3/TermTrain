@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class DirorfileDto {
     
     @ApiModelProperty(readOnly = true, value = "UUID", dataType = "UUID", example = "b5607d38-8fc1-43ef-b44e-34967083c80a", notes = "The database generated Integer for directory/file id", required = true)
-    private UUID id;
+    private Integer id;
 
     @ApiModelProperty(readOnly = true, value = "String", dataType = "String", example = "(dir)(file.txt)", notes = "directory/file name", required = true)
     private String name;
