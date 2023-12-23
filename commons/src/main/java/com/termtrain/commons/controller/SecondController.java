@@ -1,4 +1,4 @@
-package com.javainuse.controller;
+package com.termtrain.commons.controller;
 
 import org.springframework.web.bind.annotation.*;
 

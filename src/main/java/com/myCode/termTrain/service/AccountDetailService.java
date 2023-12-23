@@ -1,6 +1,7 @@
 package com.myCode.termTrain.service;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,6 +27,8 @@ public class AccountDetailService implements UserDetailsService {
         AccountDto user =  accountService.getUserByUsername(username);
         return new User(user.getUsername(),user.getPassword(), new ArrayList<>());
     }
+
+
 
 
 }

@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 @Service
 public class AccountDetailService implements UserDetailsService {
@@ -22,10 +23,16 @@ public class AccountDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("__________________________________ loaduserbyname -------------------------------------------------------");
         AccountDto user =  accountService.getUserByUsername(username);
         return new User(user.getUsername(),user.getPassword(), new ArrayList<>());
     }
 
+    public void addUser(String username) throws UsernameNotFoundException {
+        AccountDto userDto = new AccountDto();
+        userDto.setName("user");
+        userDto.setPassword("password");
+        userDto.setUsername(username);
 
+        UUID id = accountService.addUser(userDto);
+    }
 }

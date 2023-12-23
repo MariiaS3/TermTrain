@@ -12,8 +12,8 @@ public class SpringCloudConfig {
         System.out.println("__________________________________ gatewayRoutes -------------------------------------------------");
 
         return builder.routes()
-                  .route("second-service", r -> r.path("/consumer/**").uri("http://localhost:8082/second-service"))
-//                .route("auth-service", r -> r.path("/api/v1/**").uri("http://localhost:8082/auth-service"))
+//                  .route("second-service", r -> r.path("/consumer/**").uri("http://localhost:8082/second-service"))
+                .route("auth-service", r -> r.path("/api/v1/**").uri("http://localhost:8082/auth-service"))
                 .build();
     }
 

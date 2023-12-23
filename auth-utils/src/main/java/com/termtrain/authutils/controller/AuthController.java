@@ -44,23 +44,23 @@ public class AuthController {
 //        @ApiResponse(code = 400, message = "Username or password is incorect")
 //
 //    })
-//    @PostMapping("/login")
-//    public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequest request){
-//
-//        String token ="";
-//        String refreshToken = "";
-//
-//        try{
-//            UserDetails userdetails =  userDetailService.loadUserByUsername(request.getUsername());
-//            token = jwtService.generate(userdetails, "ACCESS");
-//            refreshToken = jwtService.generate(userdetails, "REFRESH");
-//            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-//        }catch(Exception ex){
-//            return ResponseEntity.badRequest().body("username or password is incorect");
-//        }
-//
-//        return ResponseEntity.ok(new AuthenticationResponse("Bearer " + token, refreshToken));
-//    }
+    @PostMapping("/login")
+    public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequest request){
+
+        String token ="";
+        String refreshToken = "";
+
+        try{
+            UserDetails userdetails =  userDetailService.loadUserByUsername(request.getUsername());
+            token = jwtService.generate(userdetails, "ACCESS");
+            refreshToken = jwtService.generate(userdetails, "REFRESH");
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+        }catch(Exception ex){
+            return ResponseEntity.badRequest().body("username or password is incorect");
+        }
+
+        return ResponseEntity.ok(new AuthenticationResponse("Bearer " + token, refreshToken));
+    }
 
 //    @ApiOperation(value = "User register", response = UUID.class, produces = "aplication/json")  //about this endpoint
 //    @ApiResponses(value = {
@@ -69,21 +69,21 @@ public class AuthController {
 //        @ApiResponse(code = 400, message = "This username already exist")
 //
 //    })
-//    @PostMapping("/register")
-//    public ResponseEntity<?> addUser(@RequestBody AccountDto userDto){
-//
-//        try{
-//            UserDetails user = userDetailService.loadUserByUsername(userDto.getUsername());
-//            if(user!=null){
-//                return ResponseEntity.badRequest().body("This username already exist");
-//            }
-//        }catch(Exception ex){
-//
-//        }
-//
-//        UUID id = userService.addUser(userDto);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(id);
-//    }
+    @PostMapping("/register")
+    public ResponseEntity<?> addUser(@RequestBody AccountDto userDto){
+
+        try{
+            UserDetails user = userDetailService.loadUserByUsername(userDto.getUsername());
+            if(user!=null){
+                return ResponseEntity.badRequest().body("This username already exist");
+            }
+        }catch(Exception ex){
+
+        }
+
+        UUID id = userService.addUser(userDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(id);
+    }
 
     @GetMapping("/test")
     public String test(){
