@@ -6,6 +6,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.myCode.termTrain.domain.forum.core.service.query.ForumQueryService;
+import com.myCode.termTrain.domain.forum.core.service.command.ForumCommandService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -13,16 +15,17 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import com.myCode.termTrain.dto.ForumDto;
-import com.myCode.termTrain.model.Forum;
-import com.myCode.termTrain.repository.ForumRepository;
+import com.myCode.termTrain.domain.forum.core.dto.ForumDto;
+import com.myCode.termTrain.domain.forum.core.model.Forum;
+import com.myCode.termTrain.domain.forum.infrastructure.forum.ForumRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class ForumServiceTest {
     
     @InjectMocks
-    private ForumService forumService;
-
+    private ForumCommandService forumCommandService;
+    @InjectMocks
+    private ForumQueryService forumQueryService;
     @Mock
     private ForumRepository forumRepository;
 
@@ -39,7 +42,7 @@ public class ForumServiceTest {
         when(forumRepository.findAll()).thenReturn(items);
         when(modelMapper.map(forum, ForumDto.class)).thenReturn(forumDto);
         
-        List<ForumDto> forumDtos = forumService.findAll();
+        List<ForumDto> forumDtos = forumQueryService.findAllForums();
         assertThat(forumDtos.size()).isEqualTo(1);
     }
 

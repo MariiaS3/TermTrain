@@ -8,6 +8,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.UUID;
 
+import com.myCode.termTrain.domain.user.core.service.query.UserQueryService;
+import com.myCode.termTrain.domain.user.core.service.command.UserCommandService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,21 +18,20 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.myCode.termTrain.dto.AccountDto;
-import com.myCode.termTrain.model.Account;
-import com.myCode.termTrain.repository.AccountRepository;
+import com.myCode.termTrain.domain.user.core.dto.UserDto;
+import com.myCode.termTrain.domain.user.core.model.User;
+import com.myCode.termTrain.domain.user.infrastructure.UserRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class AccountServiceTest {
     
     @InjectMocks
-    private AccountService userService;
+    private UserCommandService userCommandService;
+    @InjectMocks
+    private UserQueryService userQueryService;
 
     @Mock
-    private AccountRepository userRepository;
-
-    @Mock
-    private ModelMapper modelMapper;
+    private UserRepository userRepository;
 
     @Mock
     private PasswordEncoder passwordEncoder;
@@ -40,16 +41,15 @@ public class AccountServiceTest {
         UUID id = UUID.randomUUID();
 
         when(userRepository.saveAndFlush(any())).thenReturn(getUser(id));
-        when(modelMapper.map(any(), any())).thenReturn(getUser(id));
 
-        UUID uuid = userService.addUser(getUserDto());
+        String uuid = userCommandService.createUser(getUserDto());
 
         assertThat(uuid).isNotNull();
         assertThat(uuid).isEqualTo(id);
     }
 
-    private Account getUser(UUID id){
-        return Account.builder()
+    private User getUser(UUID id){
+        return User.builder()
                 .password("password")
                 .id(id)
                 .name("username")
@@ -57,8 +57,8 @@ public class AccountServiceTest {
                 .build();
     }
 
-    private AccountDto getUserDto(){
-        return AccountDto.builder()
+    private UserDto getUserDto(){
+        return UserDto.builder()
                 .password("password")
                 .id(UUID.randomUUID())
                 .name("username")
@@ -71,21 +71,20 @@ public class AccountServiceTest {
         UUID id = UUID.randomUUID();
 
         when(userRepository.findByUsername(anyString())).thenReturn(getUser(id));
-        when(modelMapper.map(any(), any())).thenReturn(getUserDto());
 
-        AccountDto userDto = userService.getUserByUsername("example@gmail.com");
+        UserDto userDto = userQueryService.verifyUserByUsername("example@gmail.com");
 
         assertThat(userDto).isNotNull();
         assertThat(userDto.getName()).isEqualTo("username");
     }
 
     @Test
-    void shouldThrowErrorWhenEmailIsNotExist() {
+    void shouldThrowErrorWhenUsernameIsNotExist() {
         
         when(userRepository.findByUsername(anyString())).thenThrow( new RuntimeException("error"));
 
-        assertThatThrownBy(() -> 
-        userService.getUserByUsername("example@gmail.com")).isInstanceOf(RuntimeException.class);
+        assertThatThrownBy(() ->
+                userQueryService.verifyUserByUsername("example@gmail.com")).isInstanceOf(RuntimeException.class);
 
     }
 }

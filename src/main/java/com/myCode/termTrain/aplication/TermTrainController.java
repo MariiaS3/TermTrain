@@ -1,0 +1,16 @@
+package com.myCode.termTrain.aplication;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/")
+public class TermTrainController {
+
+    @GetMapping("")
+    public String getAppRoot(){
+        return "TermTrain REST API";
+    }
+
+}

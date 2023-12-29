@@ -1,7 +1,5 @@
 package com.myCode.termTrain.IntegrationTest;
 
-import java.util.Collections;
-
 import com.myCode.termTrain.domain.user.core.dto.UserDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,15 +13,15 @@ import org.springframework.test.context.jdbc.Sql;
 
 import com.myCode.termTrain.TermTrainApplication;
 import com.myCode.termTrain.infrastructure.config.JwtUtil;
-import com.myCode.termTrain.domain.forum.core.dto.ItemDto;
-import com.myCode.termTrain.domain.forum.core.dto.ForumDto;
+import com.myCode.termTrain.domain.file.core.dto.FileDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Collections;
 
 @SpringBootTest(classes = TermTrainApplication.class,webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@DirtiesContext(classMode =DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD )
-public class ForumControllerTest {
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+public class FileControllerTest {
     
     @LocalServerPort
     private int port;
@@ -41,7 +39,7 @@ public class ForumControllerTest {
     @BeforeEach
     void setUpHeader(){
         String token = jwtUtil.generateToken(new UserDto(
-            "name", "username", passwordEncoder.encode("password"), "test@gmail.com"
+            "name","username", passwordEncoder.encode("password"), "test@gmail.com"
         ));
 
         testRestTemplate.getRestTemplate().setInterceptors(
@@ -54,17 +52,23 @@ public class ForumControllerTest {
 
     @Test
     @Sql(scripts = {"classpath:Insert_data.sql"})
-    void shouldReturnForumDtoListWhenCalledGetForum(){
-        ForumDto[] lisForumDtos  = testRestTemplate.getForObject("http://localhost:"+port+ "/api/v1/forum", ForumDto[].class);
-        assertThat(lisForumDtos).isNotNull();
-        assertThat(lisForumDtos.length).isEqualTo(1);
+    void shouldReturnDirOrFileWhenGetDirOrFileByNameColled(){
+        FileDto[] listofdirsAndfiles = testRestTemplate.getForObject("http://localhost:"+port+ "/api/v1/name/testdir", FileDto[].class);
+        assertThat(listofdirsAndfiles).isNotNull();
+        assertThat(listofdirsAndfiles.length).isEqualTo(1);
     }
 
     @Test
     @Sql(scripts = {"classpath:Insert_data.sql"})
-    void shouldReturnChatMessageDtoListWhenCalledGetChatMessage(){
-        ItemDto[] lisChatDtos  = testRestTemplate.getForObject("http://localhost:"+port+ "/api/v1/forum/1", ItemDto[].class);
-        assertThat(lisChatDtos).isNotNull();
-        assertThat(lisChatDtos.length).isEqualTo(2);
+    void shouldReturnDirOrFileWhenGetDirOrFileByPathColled(){
+        FileDto[] listofdirsAndfiles = testRestTemplate.getForObject("http://localhost:"+port+ "/api/v1/path/-testfolder", FileDto[].class);
+        assertThat(listofdirsAndfiles).isNotNull();
+        assertThat(listofdirsAndfiles.length).isEqualTo(2);
+    }
+
+    @Test
+    @Sql(scripts = {"classpath:Insert_data.sql"})
+    void shouldReturnDirOrFileWhenGetDirOrFileByNameAndPathColled(){
+        
     }
 }
