@@ -3,7 +3,7 @@ package com.term_train.domain.user.aplication.query;
 import com.term_train.domain.user.core.dto.AuthenticationRequest;
 import com.term_train.domain.user.core.dto.AuthenticationResponse;
 import com.term_train.domain.user.core.dto.AccountDto;
-import com.term_train.domain.user.core.service.query.UserQueryService;
+import com.term_train.domain.user.core.service.query.AccountQueryService;
 import com.term_train.infrastructure.config.JwtUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,10 +26,10 @@ public class AccountQueryController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
-    private final UserQueryService userQueryService;
+    private final AccountQueryService userQueryService;
 
     public AccountQueryController(AuthenticationManager authenticationManager,
-                                  JwtUtil jwtUtil, UserQueryService userService) {
+                                  JwtUtil jwtUtil, AccountQueryService userService) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
         this.userQueryService = userService;

@@ -1,17 +1,17 @@
 package com.term_train.domain.user.core.service.query;
 
-import com.term_train.domain.user.core.AccountFacade;
+import com.term_train.domain.user.core.AccountAction;
 import com.term_train.domain.user.core.dto.AccountDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserQueryService {
+public class AccountQueryService {
 
-    private final AccountFacade accountFacade;
+    private final AccountAction userAction;
 
     public AccountDto verifyUserByUsername(String username) {
-        return accountFacade.verifyUserByUsername(username);
+        return userAction.verifyUserByUsername(username);
     }
 }

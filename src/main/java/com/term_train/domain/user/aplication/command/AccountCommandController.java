@@ -1,7 +1,7 @@
 package com.term_train.domain.user.aplication.command;
 
 import com.term_train.domain.user.core.dto.AccountDto;
-import com.term_train.domain.user.core.service.command.UserCommandService;
+import com.term_train.domain.user.core.service.command.AccountCommandService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -20,9 +20,9 @@ import java.util.UUID;
 @RequestMapping("/api/v1")
 public class AccountCommandController {
 
-    private final UserCommandService userCommandService;
+    private final AccountCommandService userCommandService;
 
-    public AccountCommandController(UserCommandService userService) {
+    public AccountCommandController(AccountCommandService userService) {
         this.userCommandService = userService;
     }
 

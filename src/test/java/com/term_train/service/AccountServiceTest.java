@@ -8,8 +8,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.UUID;
 
-import com.term_train.domain.user.core.service.query.UserQueryService;
-import com.term_train.domain.user.core.service.command.UserCommandService;
+import com.term_train.domain.user.core.service.query.AccountQueryService;
+import com.term_train.domain.user.core.service.command.AccountCommandService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,18 +19,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.term_train.domain.user.core.dto.AccountDto;
 import com.term_train.domain.user.core.model.Account;
-import com.term_train.domain.user.infrastructure.UserRepository;
+import com.term_train.domain.user.infrastructure.AccountRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class AccountServiceTest {
     
     @InjectMocks
-    private UserCommandService userCommandService;
+    private AccountCommandService userCommandService;
     @InjectMocks
-    private UserQueryService userQueryService;
+    private AccountQueryService userQueryService;
 
     @Mock
-    private UserRepository userRepository;
+    private AccountRepository userRepository;
 
     @Mock
     private PasswordEncoder passwordEncoder;

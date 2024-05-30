@@ -1,8 +1,8 @@
 package com.term_train.infrastructure.util;
 
 import com.term_train.domain.user.core.dto.AccountDto;
-import com.term_train.domain.user.core.service.command.UserCommandService;
-import com.term_train.domain.user.core.service.query.UserQueryService;
+import com.term_train.domain.user.core.service.command.AccountCommandService;
+import com.term_train.domain.user.core.service.query.AccountQueryService;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,11 +14,11 @@ import java.util.ArrayList;
 @Service
 public class AccountDetailService implements UserDetailsService {
 
-    private final UserCommandService userCommandService;
-    private final UserQueryService userQueryService;
+    private final AccountCommandService userCommandService;
+    private final AccountQueryService userQueryService;
 
 
-    public AccountDetailService(UserCommandService userCommandService, UserQueryService userQueryService) {
+    public AccountDetailService(AccountCommandService userCommandService, AccountQueryService userQueryService) {
         this.userCommandService = userCommandService;
         this.userQueryService = userQueryService;
     }

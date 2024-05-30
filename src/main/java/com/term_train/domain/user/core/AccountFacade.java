@@ -3,7 +3,6 @@ package com.term_train.domain.user.core;
 import com.term_train.domain.user.core.dto.AccountDto;
 import com.term_train.domain.user.core.model.Account;
 import com.term_train.domain.user.infrastructure.AccountDatabase;
-import com.term_train.domain.user.infrastructure.AccountDatabaseAdapter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class AccountFacade implements AccountAction {
 
-    private final AccountDatabaseAdapter userDatabase;
+    private final AccountDatabase userDatabase;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -29,10 +28,10 @@ public class AccountFacade implements AccountAction {
     }
 
     @Override
-    public AccountDto verifyUserByUsername(String username) {
-        Account account = userDatabase.findByUsername(username);
+    public AccountDto verifyUserByUsername(String email) {
+        Account account = userDatabase.findByUsername(email);
         if (Objects.isNull(account)) {
-            throw new RuntimeException("user not exist with this email: " + username);
+            throw new RuntimeException("user not exist with this email: " + email);
         }
         return account.toUserDTO();
     }

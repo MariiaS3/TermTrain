@@ -5,13 +5,11 @@ import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class AccountDatabaseAdapter implements AccountDatabase {
 
-    private final UserRepository userRepository;
+    private final AccountRepository userRepository;
 
     @NotNull
     @Override
