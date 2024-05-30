@@ -3,11 +3,11 @@ package com.term_train.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.term_train.domain.file.aplication.command.FileCommandController;
-import com.term_train.domain.file.core.model.File;
-import com.term_train.domain.file.core.service.command.FileCommandService;
-import com.term_train.domain.file.aplication.query.FileQueryController;
-import com.term_train.domain.file.core.service.query.FileQueryService;
+import com.term_train.domain.vfs.aplication.command.VFSCommandController;
+import com.term_train.domain.vfs.core.model.VFS;
+import com.term_train.domain.vfs.core.service.command.FileCommandService;
+import com.term_train.domain.vfs.aplication.query.VFSQueryController;
+import com.term_train.domain.vfs.core.service.query.FileQueryService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,8 +15,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
-import com.term_train.domain.file.core.dto.FileDto;
-import com.term_train.domain.file.core.dto.RequestFile;
+import com.term_train.domain.vfs.core.dto.VFSDto;
+import com.term_train.domain.vfs.core.dto.RequestFile;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -27,10 +27,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class FileControllerTest {
     
     @InjectMocks
-    private FileCommandController fileCommandController;
+    private VFSCommandController fileCommandController;
 
     @InjectMocks
-    private FileQueryController fileQueryController;
+    private VFSQueryController fileQueryController;
 
     @Mock
     private FileCommandService fileCommandService;
@@ -39,10 +39,10 @@ public class FileControllerTest {
 
     @Test
     void shouldReturnFileWhenGetFileByNameColled(){
-        List<FileDto> fileDtos = new ArrayList<>();
+        List<VFSDto> fileDtos = new ArrayList<>();
         fileDtos.add(getFileDto());
         when(fileQueryService.getFileByName(anyString())).thenReturn(fileDtos);
-        ResponseEntity<List<FileDto>> dEntity = fileQueryController.getFileByName("test.txt");
+        ResponseEntity<List<VFSDto>> dEntity = fileQueryController.getFileByName("test.txt");
         assertThat(dEntity).isNotNull();
         assertThat(dEntity.getBody().size()).isEqualTo(1);
         assertThat(dEntity.getBody().get(0).getId()).isEqualTo(1);
@@ -60,10 +60,10 @@ public class FileControllerTest {
 
     @Test
     void shouldRetornDirOrFileWhenGetDirOrFileByPathColled(){
-        List<FileDto> dirorfileDtos = new ArrayList<>();
+        List<VFSDto> dirorfileDtos = new ArrayList<>();
         dirorfileDtos.add(getDirDto());
         when(fileQueryService.getFileByPath(anyString())).thenReturn(dirorfileDtos);
-        ResponseEntity<List<FileDto>> dEntity = fileQueryController.getFileByPath("-testfolder");
+        ResponseEntity<List<VFSDto>> dEntity = fileQueryController.getFileByPath("-testfolder");
         assertThat(dEntity).isNotNull();
         assertThat(dEntity.getBody().size()).isEqualTo(1);
         assertThat(dEntity.getBody().get(0).getId()).isEqualTo(1);
@@ -81,11 +81,11 @@ public class FileControllerTest {
 
     @Test
     void shouldRetornDirOrFileWhenGetDirOrFileByNameAndPathColled(){
-        FileDto fileDto = getFileDto();
+        VFSDto fileDto = getFileDto();
         when(fileQueryService.getFileByPathAndName(any(RequestFile.class))).thenReturn(fileDto);
         
         RequestFile file =  new RequestFile("test.txt","/api/v1/path-name/-testdir-");
-        ResponseEntity<FileDto> dEntity = fileQueryController.getFileByNameAndPath(file);
+        ResponseEntity<VFSDto> dEntity = fileQueryController.getFileByNameAndPath(file);
         assertThat(dEntity).isNotNull();
         assertThat(dEntity.getBody().getId()).isEqualTo(1);
         assertThat(dEntity.getBody().getPath()).isEqualTo("/testdir");
@@ -103,11 +103,11 @@ public class FileControllerTest {
 
     @Test
     void shouldCreateFileWhenCreateNewFieColled(){
-        File file = getFile();
+        VFS file = getFile();
 
-        when(fileCommandService.createNewFile(any(File.class))).thenReturn(file.toFileDto());
+        when(fileCommandService.createNewFile(any(VFS.class))).thenReturn(file.toFileDto());
 
-        ResponseEntity<FileDto> dEntity = fileCommandController.createNewFile(file);
+        ResponseEntity<VFSDto> dEntity = fileCommandController.createNewFile(file);
         assertThat(dEntity).isNotNull();
         assertThat(dEntity.getBody().getId()).isEqualTo(1);
         assertThat(dEntity.getBody().getPath()).isEqualTo("/testdir");
@@ -124,11 +124,11 @@ public class FileControllerTest {
 
     @Test
     void shouldUpdateFileWhenUpdateFieColled(){
-        File file = getFile();
+        VFS file = getFile();
         file.setText("some some string");
-        when(fileCommandService.updateFile(anyString(), any(File.class))).thenReturn(file.toFileDto());
+        when(fileCommandService.updateFile(anyString(), any(VFS.class))).thenReturn(file.toFileDto());
 
-        ResponseEntity<FileDto> dEntity = fileCommandController.updateFile(String.valueOf(file.getId()), file);
+        ResponseEntity<VFSDto> dEntity = fileCommandController.updateFile(String.valueOf(file.getId()), file);
         assertThat(dEntity).isNotNull();
         assertThat(dEntity.getBody().getId()).isEqualTo(1);
         assertThat(dEntity.getBody().getPath()).isEqualTo("/testdir");
@@ -143,8 +143,8 @@ public class FileControllerTest {
         assertThat(dEntity.getBody().getTime()).isEqualTo("Aug 7 10:51");
     }
 
-    private FileDto getDirDto(){
-        return FileDto.builder()
+    private VFSDto getDirDto(){
+        return VFSDto.builder()
                 .id(1)
                 .path("/testfolder")
                 .name("testdir")
@@ -159,8 +159,8 @@ public class FileControllerTest {
                 .build();
     }
 
-    private FileDto getFileDto(){
-        return FileDto.builder()
+    private VFSDto getFileDto(){
+        return VFSDto.builder()
                 .id(1)
                 .path("/testdir")
                 .name("test.txt")
@@ -175,8 +175,8 @@ public class FileControllerTest {
                 .build();
     }
 
-    private File getFile(){
-        return File.builder()
+    private VFS getFile(){
+        return VFS.builder()
                 .id(1)
                 .path("/testdir")
                 .name("test.txt")

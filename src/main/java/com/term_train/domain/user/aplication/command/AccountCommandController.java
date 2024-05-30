@@ -1,11 +1,14 @@
 package com.term_train.domain.user.aplication.command;
 
+import com.term_train.domain.user.aplication.query.AccountQueryController;
 import com.term_train.domain.user.core.dto.AccountDto;
 import com.term_train.domain.user.core.service.command.AccountCommandService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +22,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1")
 public class AccountCommandController {
+    private static final Logger LOG = LoggerFactory.getLogger(AccountCommandController.class);
 
     private final AccountCommandService userCommandService;
 

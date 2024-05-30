@@ -2,7 +2,7 @@ package com.term_train.repository;
 
 import java.util.List;
 
-import com.term_train.domain.file.infrastructure.FileRepository;
+import com.term_train.domain.vfs.infrastructure.VFSRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,7 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.term_train.domain.file.core.model.File;
+import com.term_train.domain.vfs.core.model.VFS;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,14 +20,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class FileRepositoryTest {
 
     @Autowired
-    private FileRepository dirFileRepository;
+    private VFSRepository dirFileRepository;
 
 
     @Test
     @Sql(scripts = {"classpath:Insert_data.sql"})
     void shouldReturnDirsOrFilesByName(){
-        List<File> dirsbyname = dirFileRepository.findByName("testdir");
-        List<File> filesbyname = dirFileRepository.findByName("testfile.txt");
+        List<VFS> dirsbyname = dirFileRepository.findByName("testdir");
+        List<VFS> filesbyname = dirFileRepository.findByName("testfile.txt");
         Assertions.assertEquals(dirsbyname.size(), 1);
         Assertions.assertEquals(filesbyname.size(), 1);
     }
@@ -35,7 +35,7 @@ public class FileRepositoryTest {
     @Test
     @Sql(scripts = {"classpath:Insert_data.sql"})
     void shouldReturnDirsAndFilesByPath(){
-        List<File> dirsAndfiles = dirFileRepository.findByPath("/testfolder");
+        List<VFS> dirsAndfiles = dirFileRepository.findByPath("/testfolder");
 
         Assertions.assertEquals(dirsAndfiles.size(), 2);
     }
@@ -43,8 +43,8 @@ public class FileRepositoryTest {
     @Test
     @Sql(scripts = {"classpath:Insert_data.sql"})
     void shouldReturnDirsAndFilesByPathAndName(){
-        File dirName = dirFileRepository.findByPathAndName("/testfolder", "testdir");
-        File fileName = dirFileRepository.findByPathAndName("/testfolder", "testfile.txt");
+        VFS dirName = dirFileRepository.findByPathAndName("/testfolder", "testdir");
+        VFS fileName = dirFileRepository.findByPathAndName("/testfolder", "testfile.txt");
 
         assertThat(dirName).isNotNull();
         assertThat(fileName).isNotNull();

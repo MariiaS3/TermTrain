@@ -1,8 +1,8 @@
-package com.term_train.domain.file.aplication.command;
+package com.term_train.domain.vfs.aplication.command;
 
-import com.term_train.domain.file.core.dto.FileDto;
-import com.term_train.domain.file.core.model.File;
-import com.term_train.domain.file.core.service.command.FileCommandService;
+import com.term_train.domain.vfs.core.dto.VFSDto;
+import com.term_train.domain.vfs.core.model.VFS;
+import com.term_train.domain.vfs.core.service.command.FileCommandService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -15,26 +15,26 @@ import org.springframework.web.bind.annotation.*;
 @Api(value = "TermTrain Api", tags = "TermTrain Api", produces = "aplication/json")
 @RestController
 @RequestMapping("/api/v1")
-public class FileCommandController {
+public class VFSCommandController {
     @Autowired
     private final FileCommandService fileCommandService;
 
-    public FileCommandController(FileCommandService fileCommandService) {
+    public VFSCommandController(FileCommandService fileCommandService) {
         this.fileCommandService = fileCommandService;
     }
 
-    @ApiOperation(value = "add new file/dir", response = FileDto[].class, produces = "aplication/json")
+    @ApiOperation(value = "add new file/dir", response = VFSDto[].class, produces = "aplication/json")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Succesfully added file/dir"), @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"), @ApiResponse(code = 404, message = "not found resource")
 
     })
     @PostMapping("/add-new-file")
-    public ResponseEntity<FileDto> createNewFile(@RequestBody File dirFile) {
-        FileDto file = fileCommandService.createNewFile(dirFile);
+    public ResponseEntity<VFSDto> createNewFile(@RequestBody VFS dirFile) {
+        VFSDto file = fileCommandService.createNewFile(dirFile);
         return new ResponseEntity<>(file, HttpStatus.CREATED);
     }
 
     @PutMapping("/update-file/{id}")
-    public ResponseEntity<FileDto> updateFile(@PathVariable String id, @RequestBody File file) {
+    public ResponseEntity<VFSDto> updateFile(@PathVariable String id, @RequestBody VFS file) {
         return ResponseEntity.ok(fileCommandService.updateFile(id, file));
     }
 }

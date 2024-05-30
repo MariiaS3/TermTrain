@@ -1,9 +1,9 @@
-package com.term_train.domain.file.core;
+package com.term_train.domain.vfs.core;
 
-import com.term_train.domain.file.core.dto.FileDto;
-import com.term_train.domain.file.core.dto.RequestFile;
-import com.term_train.domain.file.core.model.File;
-import com.term_train.domain.file.infrastructure.FileDatabase;
+import com.term_train.domain.vfs.core.dto.VFSDto;
+import com.term_train.domain.vfs.core.dto.RequestFile;
+import com.term_train.domain.vfs.core.model.VFS;
+import com.term_train.domain.vfs.infrastructure.VFSDatabase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,17 +12,17 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class FileFacade implements FileAction {
+public class VFSFacade implements VFSAction {
 
-    private final FileDatabase fileDatabase;
+    private final VFSDatabase fileDatabase;
 
-    private FileDto convertFileToDto(File dirorfile) {
+    private VFSDto convertFileToDto(VFS dirorfile) {
         return dirorfile.toFileDto();
     }
 
-    public FileDto updateFile(String id, File file) {
+    public VFSDto updateFile(String id, VFS file) {
         try {
-            File fileTemp = fileDatabase.findById(Integer.valueOf(id));
+            VFS fileTemp = fileDatabase.findById(Integer.valueOf(id));
             fileTemp.setName(file.getName());
             fileTemp.setPath(file.getPath());
             fileTemp.setText(file.getText());
@@ -39,33 +39,33 @@ public class FileFacade implements FileAction {
     }
 
     @Override
-    public FileDto createNewFile(File file) {
+    public VFSDto createNewFile(VFS file) {
         return fileDatabase.createNewFile(file).toFileDto();
     }
 
     @Override
-    public void delete(File file) {
+    public void delete(VFS file) {
         fileDatabase.delete(file);
     }
 
     @Override
-    public List<FileDto> findFileByName(String name) {
-        List<File> dirFiles = fileDatabase.findByName(name);
+    public List<VFSDto> findFileByName(String name) {
+        List<VFS> dirFiles = fileDatabase.findByName(name);
         return dirFiles.stream().map(this::convertFileToDto).collect(Collectors.toList());
     }
 
     @Override
-    public List<FileDto> findFileByPath(String path) {
+    public List<VFSDto> findFileByPath(String path) {
         path = path.replace('-', '/');
-        List<File> dirFiles = fileDatabase.findByPath(path);
+        List<VFS> dirFiles = fileDatabase.findByPath(path);
         return dirFiles.stream().map(this::convertFileToDto).collect(Collectors.toList());
     }
 
     @Override
-    public FileDto findFileByPathAndName(RequestFile fileRequest) {
+    public VFSDto findFileByPathAndName(RequestFile fileRequest) {
         String path = fileRequest.getPath().replace('-', '/');
         String name = fileRequest.getName();
-        File dirFile = fileDatabase.findByPathAndName(path, name);
+        VFS dirFile = fileDatabase.findByPathAndName(path, name);
         return dirFile.toFileDto();
     }
 }

@@ -1,6 +1,6 @@
-package com.term_train.domain.file.core.dto;
+package com.term_train.domain.vfs.core.dto;
 
-import com.term_train.domain.file.core.model.File;
+import com.term_train.domain.vfs.core.model.VFS;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@ApiModel(value = "DirFileDto", description = "all details about directory and files if it is not directory")
-public class FileDto {
+@ApiModel(value = "VFS", description = "all details about directory and files if it is not directory")
+public class VFSDto {
 
     @ApiModelProperty(readOnly = true, value = "Integer", dataType = "Integer", example = "1", notes = "The database generated Integer for directory/file id", required = true)
     private Integer id;
@@ -48,8 +48,8 @@ public class FileDto {
     @ApiModelProperty(readOnly = true, value = "String", dataType = "String", example = "some string", notes = "If isDirectory is false some string is in here", required = true)
     private String text;
 
-    public File toFile() {
-        return new File(this.getName(), this.getPath(), this.getPermisions(),
+    public VFS toFile() {
+        return new VFS(this.getName(), this.getPath(), this.getPermisions(),
                 this.getLink(), this.getUsername(), this.getGroupname(), this.getSize(), this.getTime(), this.getIsDirectory(), this.getText());
     }
 }

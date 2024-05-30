@@ -1,4 +1,4 @@
-create table  dirorfile (
+create table  vfs (
         id              integer  auto_increment,
         path            varchar not null,
         name            varchar not null,

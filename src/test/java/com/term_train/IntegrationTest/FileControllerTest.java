@@ -13,7 +13,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 import com.term_train.TermTrainApplication;
 import com.term_train.infrastructure.config.JwtUtil;
-import com.term_train.domain.file.core.dto.FileDto;
+import com.term_train.domain.vfs.core.dto.VFSDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -53,7 +53,7 @@ public class FileControllerTest {
     @Test
     @Sql(scripts = {"classpath:Insert_data.sql"})
     void shouldReturnDirOrFileWhenGetDirOrFileByNameColled(){
-        FileDto[] listofdirsAndfiles = testRestTemplate.getForObject("http://localhost:"+port+ "/api/v1/name/testdir", FileDto[].class);
+        VFSDto[] listofdirsAndfiles = testRestTemplate.getForObject("http://localhost:"+port+ "/api/v1/name/testdir", VFSDto[].class);
         assertThat(listofdirsAndfiles).isNotNull();
         assertThat(listofdirsAndfiles.length).isEqualTo(1);
     }
@@ -61,7 +61,7 @@ public class FileControllerTest {
     @Test
     @Sql(scripts = {"classpath:Insert_data.sql"})
     void shouldReturnDirOrFileWhenGetDirOrFileByPathColled(){
-        FileDto[] listofdirsAndfiles = testRestTemplate.getForObject("http://localhost:"+port+ "/api/v1/path/-testfolder", FileDto[].class);
+        VFSDto[] listofdirsAndfiles = testRestTemplate.getForObject("http://localhost:"+port+ "/api/v1/path/-testfolder", VFSDto[].class);
         assertThat(listofdirsAndfiles).isNotNull();
         assertThat(listofdirsAndfiles.length).isEqualTo(2);
     }

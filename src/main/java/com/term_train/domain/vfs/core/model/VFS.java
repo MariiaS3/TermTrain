@@ -1,6 +1,6 @@
-package com.term_train.domain.file.core.model;
+package com.term_train.domain.vfs.core.model;
 
-import com.term_train.domain.file.core.dto.FileDto;
+import com.term_train.domain.vfs.core.dto.VFSDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class File {
+public class VFS {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "Integer")
@@ -61,7 +61,7 @@ public class File {
     @Column
     private String text;
 
-    public File(String name, String path, String permisions, Integer link, String username, String groupname, Integer size, String time, Boolean isDirectory, String text) {
+    public VFS(String name, String path, String permisions, Integer link, String username, String groupname, Integer size, String time, Boolean isDirectory, String text) {
         this.name = name;
         this.path = path;
         this.permisions = permisions;
@@ -74,8 +74,8 @@ public class File {
         this.text = text;
     }
 
-    public FileDto toFileDto() {
-        return new FileDto(this.getId(), this.getName(), this.getPath(), this.getPermisions(),
+    public VFSDto toFileDto() {
+        return new VFSDto(this.getId(), this.getName(), this.getPath(), this.getPermisions(),
                 this.getLink(), this.getUsername(), this.getGroupname(), this.getSize(), this.getTime(), this.getIsDirectory(), this.getText());
     }
 }

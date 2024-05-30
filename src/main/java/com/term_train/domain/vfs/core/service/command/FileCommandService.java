@@ -1,21 +1,21 @@
-package com.term_train.domain.file.core.service.command;
+package com.term_train.domain.vfs.core.service.command;
 
-import com.term_train.domain.file.core.FileAction;
-import com.term_train.domain.file.core.dto.FileDto;
-import com.term_train.domain.file.core.model.File;
+import com.term_train.domain.vfs.core.VFSAction;
+import com.term_train.domain.vfs.core.dto.VFSDto;
+import com.term_train.domain.vfs.core.model.VFS;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class FileCommandService {
-    private final FileAction fileAction;
+    private final VFSAction fileAction;
 
-    public FileDto createNewFile(File dirFile) {
+    public VFSDto createNewFile(VFS dirFile) {
         return fileAction.createNewFile(dirFile);
     }
 
-    public FileDto updateFile(String id, File file) {
+    public VFSDto updateFile(String id, VFS file) {
         return fileAction.updateFile(id, file);
 
     }

@@ -4,6 +4,8 @@ import com.term_train.domain.user.core.dto.AccountDto;
 import com.term_train.domain.user.core.model.Account;
 import com.term_train.domain.user.infrastructure.AccountDatabase;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,13 +14,14 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 public class AccountFacade implements AccountAction {
-
+    private final Logger LOG = LoggerFactory.getLogger(AccountFacade.class);
     private final AccountDatabase userDatabase;
     private final PasswordEncoder passwordEncoder;
 
     @Override
     public String createUser(AccountDto userDto) {
         Account user = userDatabase.findByUsername(userDto.getUsername());
+
         if (user != null) {
             throw new RuntimeException("This username already exist");
         }

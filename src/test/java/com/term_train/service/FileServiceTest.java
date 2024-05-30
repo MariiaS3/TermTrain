@@ -1,24 +1,17 @@
 package com.term_train.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.term_train.domain.file.core.dto.RequestFile;
-import com.term_train.domain.file.core.service.query.FileQueryService;
-import com.term_train.domain.file.core.service.command.FileCommandService;
-import org.junit.jupiter.api.Test;
+import com.term_train.domain.vfs.core.service.query.FileQueryService;
+import com.term_train.domain.vfs.core.service.command.FileCommandService;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import com.term_train.domain.file.core.dto.FileDto;
-import com.term_train.domain.file.core.model.File;
-import com.term_train.domain.file.infrastructure.FileRepository;
+import com.term_train.domain.vfs.core.dto.VFSDto;
+import com.term_train.domain.vfs.core.model.VFS;
+import com.term_train.domain.vfs.infrastructure.VFSRepository;
 
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,7 +22,7 @@ public class FileServiceTest {
     @InjectMocks
     private FileQueryService fileQueryService;
     @Mock
-    private FileRepository dirorfileRepository;
+    private VFSRepository dirorfileRepository;
 
     @Mock
     private ModelMapper modelMapper;
@@ -72,8 +65,8 @@ public class FileServiceTest {
 //    }
 
 
-    private File getDir(){
-        return File.builder()
+    private VFS getDir(){
+        return VFS.builder()
                 .id(1)
                 .path("/testfolder")
                 .name("testdir")
@@ -88,8 +81,8 @@ public class FileServiceTest {
                 .build();
     }
 
-    private FileDto getDirDto(){
-        return FileDto.builder()
+    private VFSDto getDirDto(){
+        return VFSDto.builder()
                 .id(1)
                 .path("/testfolder")
                 .name("testdir")

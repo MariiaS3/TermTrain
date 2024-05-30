@@ -1,6 +1,6 @@
-package com.term_train.domain.file.infrastructure;
+package com.term_train.domain.vfs.infrastructure;
 
-import com.term_train.domain.file.core.model.File;
+import com.term_train.domain.vfs.core.model.VFS;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -8,36 +8,36 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class FileDatabaseAdapter implements FileDatabase {
-    private final FileRepository fileRepository;
+public class VFSDatabaseAdapter implements VFSDatabase {
+    private final VFSRepository fileRepository;
 
     @Override
-    public File createNewFile(File file) {
+    public VFS createNewFile(VFS file) {
         return fileRepository.save(file);
     }
 
     @Override
-    public File findById(Integer id) {
+    public VFS findById(Integer id) {
         return fileRepository.findById(id).get();
     }
 
     @Override
-    public void delete(File file) {
+    public void delete(VFS file) {
         fileRepository.delete(file);
     }
 
     @Override
-    public List<File> findByName(String name) {
+    public List<VFS> findByName(String name) {
         return fileRepository.findByName(name);
     }
 
     @Override
-    public List<File> findByPath(String path) {
+    public List<VFS> findByPath(String path) {
         return fileRepository.findByPath(path);
     }
 
     @Override
-    public File findByPathAndName(String path, String name) {
+    public VFS findByPathAndName(String path, String name) {
         return fileRepository.findByPathAndName(path, name);
     }
 }

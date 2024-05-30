@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,12 +50,12 @@ public class AccountQueryController {
             AccountDto userDetails = userQueryService.verifyUserByUsername(request.getUsername());
             token = jwtUtil.generateToken(userDetails);
             LOG.info("Token " + token);
-//            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         } catch (Exception ex) {
             return ResponseEntity.badRequest().body("username or password is incorect" + request.getUsername() + "   " + request.getPassword());
         }
 
-        return ResponseEntity.ok(new AuthenticationResponse("Bearer " + token));
+        return ResponseEntity.ok(new AuthenticationResponse(token));
     }
 
 }

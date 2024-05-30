@@ -1,4 +1,4 @@
-package com.term_train.domain.file.core.dto;
+package com.term_train.domain.vfs.core.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
