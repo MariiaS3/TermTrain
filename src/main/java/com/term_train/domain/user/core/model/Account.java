@@ -1,6 +1,6 @@
 package com.term_train.domain.user.core.model;
 
-import com.term_train.domain.user.core.dto.UserDto;
+import com.term_train.domain.user.core.dto.AccountDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(name = "account")
-public class User {
+public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "uuid2")
@@ -27,7 +27,7 @@ public class User {
     private String password;
     private String email;
 
-    public User(String name, String username, String email) {
+    public Account(String name, String username, String email) {
         this.name = name;
         this.username = username;
         this.email = email;
@@ -41,7 +41,7 @@ public class User {
         this.email = email;
     }
 
-    public UserDto toUserDTO() {
-        return new UserDto(this.getId(), this.getName(), this.getUsername(), this.getPassword(), this.getEmail());
+    public AccountDto toUserDTO() {
+        return new AccountDto(this.getId(), this.getName(), this.getUsername(), this.getPassword(), this.getEmail());
     }
 }

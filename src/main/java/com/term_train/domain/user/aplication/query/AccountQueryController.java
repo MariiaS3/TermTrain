@@ -2,13 +2,15 @@ package com.term_train.domain.user.aplication.query;
 
 import com.term_train.domain.user.core.dto.AuthenticationRequest;
 import com.term_train.domain.user.core.dto.AuthenticationResponse;
-import com.term_train.domain.user.core.dto.UserDto;
+import com.term_train.domain.user.core.dto.AccountDto;
 import com.term_train.domain.user.core.service.query.UserQueryService;
 import com.term_train.infrastructure.config.JwtUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,14 +22,15 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "TermTrain Api", tags = "TermTrain Api", produces = "aplication/json")
 @RestController
 @RequestMapping("/api/v1")
-public class UserQueryController {
+public class AccountQueryController {
+    private static final Logger LOG = LoggerFactory.getLogger(AccountQueryController.class);
 
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
     private final UserQueryService userQueryService;
 
-    public UserQueryController(AuthenticationManager authenticationManager,
-                               JwtUtil jwtUtil, UserQueryService userService) {
+    public AccountQueryController(AuthenticationManager authenticationManager,
+                                  JwtUtil jwtUtil, UserQueryService userService) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
         this.userQueryService = userService;
@@ -41,15 +44,15 @@ public class UserQueryController {
 
     })
     @PostMapping("/login")
-    public ResponseEntity<?> userAuthentication(@RequestBody AuthenticationRequest request) {
+    public ResponseEntity<?> accountAuthentication(@RequestBody AuthenticationRequest request) {
         String token = "";
-
         try {
-            UserDto userdetails = userQueryService.verifyUserByUsername(request.getUsername());
-            token = jwtUtil.generateToken(userdetails);
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+            AccountDto userDetails = userQueryService.verifyUserByUsername(request.getUsername());
+            token = jwtUtil.generateToken(userDetails);
+            LOG.info("Token " + token);
+//            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         } catch (Exception ex) {
-            return ResponseEntity.badRequest().body("username or password is incorect");
+            return ResponseEntity.badRequest().body("username or password is incorect" + request.getUsername() + "   " + request.getPassword());
         }
 
         return ResponseEntity.ok(new AuthenticationResponse("Bearer " + token));

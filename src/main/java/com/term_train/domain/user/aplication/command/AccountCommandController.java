@@ -1,6 +1,6 @@
 package com.term_train.domain.user.aplication.command;
 
-import com.term_train.domain.user.core.dto.UserDto;
+import com.term_train.domain.user.core.dto.AccountDto;
 import com.term_train.domain.user.core.service.command.UserCommandService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,11 +18,11 @@ import java.util.UUID;
 @Api(value = "TermTrain Api", tags = "TermTrain Api", produces = "aplication/json")
 @RestController
 @RequestMapping("/api/v1")
-public class UserCommandController {
+public class AccountCommandController {
 
     private final UserCommandService userCommandService;
 
-    public UserCommandController(UserCommandService userService) {
+    public AccountCommandController(UserCommandService userService) {
         this.userCommandService = userService;
     }
 
@@ -34,7 +34,7 @@ public class UserCommandController {
 
     })
     @PostMapping("/register")
-    public ResponseEntity<?> createNewUser(@RequestBody UserDto userDto) {
+    public ResponseEntity<?> createNewUser(@RequestBody AccountDto userDto) {
 
         try {
             String id = userCommandService.createUser(userDto);

@@ -2,6 +2,7 @@
 -- insert into chat_message(id, username ,message, forum_id) values (1,'test2@gmail.com','jakas wiadomosc 1', 1);
 -- insert into chat_message(id, username ,message, forum_id) values (2,'test1@gmail.com','jakas wiadomosc 2', 1);
 
+insert into account( id, name ,username ,password) values ('b5607d38-8fc1','test','test@gmail.com','password' );
 
 insert into dirorfile(id ,path ,name  ,link  ,permisions ,username  ,groupname ,is_directory ,size ,text ,time ) values (3,'/', 'home', 3, 'drwxr-xr-x','root', 'root','true', 4096, '', 'Jul 31 22:29');
 insert into dirorfile(id ,path ,name  ,link  ,permisions ,username  ,groupname ,is_directory ,size ,text ,time ) values (4,'/', 'bin', 1, 'lrwxrwxrwx','root', 'root','true', 9, '', 'Jun  9 09:53');

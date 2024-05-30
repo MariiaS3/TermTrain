@@ -1,7 +1,7 @@
 package com.term_train.domain.user.core.service.query;
 
-import com.term_train.domain.user.core.UserAction;
-import com.term_train.domain.user.core.dto.UserDto;
+import com.term_train.domain.user.core.AccountFacade;
+import com.term_train.domain.user.core.dto.AccountDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserQueryService {
 
-    private final UserAction userAction;
+    private final AccountFacade accountFacade;
 
-    public UserDto verifyUserByUsername(String username) {
-        return userAction.verifyUserByUsername(username);
+    public AccountDto verifyUserByUsername(String username) {
+        return accountFacade.verifyUserByUsername(username);
     }
 }

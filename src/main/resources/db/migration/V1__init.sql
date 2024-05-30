@@ -21,18 +21,18 @@ create table  account (
         primary key (id)
 );
 
-create table forum (
-        id             integer  not null auto_increment,
-        username        varchar not null,
-        title       varchar not null,
-        primary key (id)
-);
+--create table forum (
+--        id             integer  not null auto_increment,
+--        username        varchar not null,
+--        title       varchar not null,
+--        primary key (id)
+--);
 
-create table  chat_message (
-        id              integer not null auto_increment,
-        username        varchar not null,
-        message       varchar not null,
-        forum_id integer REFERENCES forum(id),
-        primary key (id)
-);
+--create table  chat_message (
+--        id              integer not null auto_increment,
+--        username        varchar not null,
+--        message       varchar not null,
+--        forum_id integer REFERENCES forum(id),
+--        primary key (id)
+--);
 

@@ -2,7 +2,7 @@ package com.term_train.IntegrationTest;
 
 import java.util.Collections;
 
-import com.term_train.domain.user.core.dto.UserDto;
+import com.term_train.domain.user.core.dto.AccountDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class ForumControllerTest {
     //in this function i generate token for test
     @BeforeEach
     void setUpHeader(){
-        String token = jwtUtil.generateToken(new UserDto(
+        String token = jwtUtil.generateToken(new AccountDto(
             "name", "username", passwordEncoder.encode("password"), "test@gmail.com"
         ));
 

@@ -1,7 +1,7 @@
 package com.term_train.domain.user.core.service.command;
 
-import com.term_train.domain.user.core.UserAction;
-import com.term_train.domain.user.core.dto.UserDto;
+import com.term_train.domain.user.core.AccountAction;
+import com.term_train.domain.user.core.dto.AccountDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserCommandService {
 
-    private final UserAction userAction;
+    private final AccountAction userAction;
 
-    public String createUser(UserDto userDto) {
+    public String createUser(AccountDto userDto) {
         return userAction.createUser(userDto);
     }
 

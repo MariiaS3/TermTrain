@@ -1,6 +1,6 @@
 package com.term_train.infrastructure.util;
 
-import com.term_train.domain.user.core.dto.UserDto;
+import com.term_train.domain.user.core.dto.AccountDto;
 import com.term_train.domain.user.core.service.command.UserCommandService;
 import com.term_train.domain.user.core.service.query.UserQueryService;
 import org.springframework.security.core.userdetails.User;
@@ -27,12 +27,12 @@ public class AccountDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDto user =  userQueryService.verifyUserByUsername(username);
+        AccountDto user =  userQueryService.verifyUserByUsername(username);
         return new User(user.getUsername(),user.getPassword(), new ArrayList<>());
     }
 
     public void addUser(String username) throws UsernameNotFoundException {
-        UserDto userDto = new UserDto();
+        AccountDto userDto = new AccountDto();
         userDto.setName("user");
         userDto.setPassword("password");
         userDto.setUsername(username);

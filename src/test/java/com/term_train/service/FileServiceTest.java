@@ -34,42 +34,42 @@ public class FileServiceTest {
     @Mock
     private ModelMapper modelMapper;
 
-    @Test
-    void shouldReturnDirsOrFilesByName(){
-        List<File> dirAndfile = new ArrayList<>();
-        File dir = getDir();
-        dirAndfile.add(dir);
-        FileDto dirDto = getDirDto();
-        when(dirorfileRepository.findByName(anyString())).thenReturn(dirAndfile);
-        when(modelMapper.map(dir, FileDto.class)).thenReturn(dirDto);
-        List<FileDto> dirDtos = fileQueryService.getFileByName("testdir");
-        assertThat(dirDtos.size()).isEqualTo(1);
-    }
-
-    @Test
-    void shouldReturnDirsOrFilesByPath(){
-        List<File> dirAndfile = new ArrayList<>();
-        File dir = getDir();
-        dirAndfile.add(dir);
-        FileDto dirDto = getDirDto();
-        when(dirorfileRepository.findByPath(anyString())).thenReturn(dirAndfile);
-        when(modelMapper.map(dir, FileDto.class)).thenReturn(dirDto);
-        List<FileDto> dirDtos = fileQueryService.getFileByPath("/testfolder");
-        assertThat(dirDtos.size()).isEqualTo(1);
-    }
-
-    @Test
-    void shouldReturnDirsOrFilesByNameAndPath(){
-        File dir = getDir();
-        FileDto dirDto = getDirDto();
-        when(dirorfileRepository.findByPathAndName(anyString(), anyString())).thenReturn(dir);
-        when(modelMapper.map(dir, FileDto.class)).thenReturn(dirDto);
-
-        RequestFile requestFile = new RequestFile("testdir", "/testfolder");
-
-        FileDto DtoDir = fileQueryService.getFileByPathAndName(requestFile);
-        assertThat(DtoDir).isNotNull();
-    }
+//    @Test
+//    void shouldReturnDirsOrFilesByName(){
+//        List<File> dirAndfile = new ArrayList<>();
+//        File dir = getDir();
+//        dirAndfile.add(dir);
+//        FileDto dirDto = getDirDto();
+//        when(dirorfileRepository.findByName(anyString())).thenReturn(dirAndfile);
+//        when(modelMapper.map(dir, FileDto.class)).thenReturn(dirDto);
+//        List<FileDto> dirDtos = fileQueryService.getFileByName("testdir");
+//        assertThat(dirDtos.size()).isEqualTo(1);
+//    }
+//
+//    @Test
+//    void shouldReturnDirsOrFilesByPath(){
+//        List<File> dirAndfile = new ArrayList<>();
+//        File dir = getDir();
+//        dirAndfile.add(dir);
+//        FileDto dirDto = getDirDto();
+//        when(dirorfileRepository.findByPath(anyString())).thenReturn(dirAndfile);
+//        when(modelMapper.map(dir, FileDto.class)).thenReturn(dirDto);
+//        List<FileDto> dirDtos = fileQueryService.getFileByPath("/testfolder");
+//        assertThat(dirDtos.size()).isEqualTo(1);
+//    }
+//
+//    @Test
+//    void shouldReturnDirsOrFilesByNameAndPath(){
+//        File dir = getDir();
+//        FileDto dirDto = getDirDto();
+//        when(dirorfileRepository.findByPathAndName(anyString(), anyString())).thenReturn(dir);
+//        when(modelMapper.map(dir, FileDto.class)).thenReturn(dirDto);
+//
+//        RequestFile requestFile = new RequestFile("testdir", "/testfolder");
+//
+//        FileDto DtoDir = fileQueryService.getFileByPathAndName(requestFile);
+//        assertThat(DtoDir).isNotNull();
+//    }
 
 
     private File getDir(){

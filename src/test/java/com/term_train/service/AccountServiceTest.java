@@ -17,8 +17,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.term_train.domain.user.core.dto.UserDto;
-import com.term_train.domain.user.core.model.User;
+import com.term_train.domain.user.core.dto.AccountDto;
+import com.term_train.domain.user.core.model.Account;
 import com.term_train.domain.user.infrastructure.UserRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -47,8 +47,8 @@ public class AccountServiceTest {
         assertThat(uuid).isEqualTo(id);
     }
 
-    private User getUser(UUID id){
-        return User.builder()
+    private Account getUser(UUID id){
+        return Account.builder()
                 .password("password")
                 .id(id)
                 .name("username")
@@ -56,8 +56,8 @@ public class AccountServiceTest {
                 .build();
     }
 
-    private UserDto getUserDto(){
-        return UserDto.builder()
+    private AccountDto getUserDto(){
+        return AccountDto.builder()
                 .password("password")
                 .id(UUID.randomUUID())
                 .name("username")
@@ -71,7 +71,7 @@ public class AccountServiceTest {
 
         when(userRepository.findByUsername(anyString())).thenReturn(getUser(id));
 
-        UserDto userDto = userQueryService.verifyUserByUsername("example@gmail.com");
+        AccountDto userDto = userQueryService.verifyUserByUsername("example@gmail.com");
 
         assertThat(userDto).isNotNull();
         assertThat(userDto.getName()).isEqualTo("username");
