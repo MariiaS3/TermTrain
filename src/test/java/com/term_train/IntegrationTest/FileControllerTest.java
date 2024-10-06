@@ -1,6 +1,6 @@
 package com.term_train.IntegrationTest;
 
-import com.term_train.domain.user.core.dto.AccountDto;
+import com.term_train.ddd.user.domain.dto.AccountDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 import com.term_train.TermTrainApplication;
 import com.term_train.infrastructure.config.JwtUtil;
-import com.term_train.domain.vfs.core.dto.VFSDto;
+import com.term_train.ddd.vfs.domain.dto.VFSDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

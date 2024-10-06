@@ -1,16 +1,15 @@
 package com.term_train.service;
 
-import com.term_train.domain.vfs.core.service.query.FileQueryService;
-import com.term_train.domain.vfs.core.service.command.FileCommandService;
+import com.term_train.ddd.vfs.infrastructure.service.FileCommandService;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import com.term_train.domain.vfs.core.dto.VFSDto;
-import com.term_train.domain.vfs.core.model.VFS;
-import com.term_train.domain.vfs.infrastructure.VFSRepository;
+import com.term_train.ddd.vfs.domain.dto.VFSDto;
+import com.term_train.ddd.vfs.domain.model.VFS;
+import com.term_train.ddd.vfs.infrastructure.port.VFSRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,7 +19,7 @@ public class FileServiceTest {
     @InjectMocks
     private FileCommandService fileCommandService;
     @InjectMocks
-    private FileQueryService fileQueryService;
+    private FileCommandService fileQueryService;
     @Mock
     private VFSRepository dirorfileRepository;
 

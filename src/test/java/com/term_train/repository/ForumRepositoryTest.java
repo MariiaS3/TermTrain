@@ -2,7 +2,7 @@ package com.term_train.repository;
 
 import java.util.List;
 
-import com.term_train.domain.forum.infrastructure.forum.ForumRepository;
+import com.term_train.ddd.forum.infrastructure.port.ForumRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,7 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.term_train.domain.forum.core.model.Forum;
+import com.term_train.ddd.forum.domain.model.Forum;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest

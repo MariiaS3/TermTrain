@@ -8,26 +8,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.term_train.domain.forum.core.service.query.ItemQueryService;
-import com.term_train.domain.forum.core.service.command.ItemCommandService;
+import com.term_train.ddd.forum.domain.ItemFacade;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.term_train.domain.forum.core.dto.ItemDto;
-import com.term_train.domain.forum.core.model.Item;
-import com.term_train.domain.forum.core.model.Forum;
-import com.term_train.domain.forum.infrastructure.item.ItemRepository;
+import com.term_train.ddd.forum.domain.dto.ItemDto;
+import com.term_train.ddd.forum.domain.model.Item;
+import com.term_train.ddd.forum.domain.model.Forum;
+import com.term_train.ddd.forum.infrastructure.port.ItemRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class ItemServiceTest {
     
     @InjectMocks
-    private ItemCommandService itemCommandService;
-    @InjectMocks
-    private ItemQueryService itemQueryService;
+    private ItemFacade itemFacade;
 
     @Mock
     private ItemRepository itemRepository;
@@ -42,7 +39,7 @@ public class ItemServiceTest {
         when(itemRepository.findByForumId(anyInt())).thenReturn(chatMessages);
         when(chat.toItemDto()).thenReturn(chatMessageDto);
 
-        List<ItemDto> itemDtos = itemQueryService.findAllItemsByForumId(1);
+        List<ItemDto> itemDtos = itemFacade.findAllItemsByForumId(1);
         assertThat(itemDtos.size()).isEqualTo(1);
 
     }
@@ -53,7 +50,7 @@ public class ItemServiceTest {
 
         when(itemRepository.saveAndFlush(item)).thenReturn(item);
 
-        ItemDto itemDto = itemCommandService.createNewItem(item);
+        ItemDto itemDto = itemFacade.createNewItem(item);
         assertThat(itemDto.getId()).isEqualTo(1);
         assertThat(itemDto.getUsername()).isEqualTo("test2@gmail.com");
         assertThat(itemDto.getMessage()).isEqualTo("jakas wiadomosc 1");

@@ -1,38 +1,63 @@
-create table  vfs (
-        id              integer  auto_increment,
-        path            varchar not null,
-        name            varchar not null,
-        link            integer not null,
-        permisions      varchar not null,
-        username        varchar not null,
-        groupname       varchar not null,
-        is_directory    boolean not null,
-        size            integer not null,
-        text            varchar not null,
-        time            varchar not null,
-        primary key (id)
-);
 
-create table  account (
-        id          BINARY(16) not null,
-        name        varchar not null,
-        username       varchar not null,
-        password    varchar not null,
-        primary key (id)
-);
+--create table  account (
+--        id UUID unique DEFAULT gen_random_uuid (),
+--        name        varchar not null,
+--        username    varchar not null,
+--        password    varchar not null,
+--        primary key (id)
+--);
+
+--create table  vfs (
+--        id UUID unique DEFAULT gen_random_uuid (),
+--        path            varchar not null,
+--        name            varchar not null,
+--        link            integer not null,
+--        permisions      varchar not null,
+--        username        varchar not null,
+--        groupname       varchar not null,
+--        is_directory    boolean not null,
+--        size            integer not null,
+--        text            varchar not null,
+--        time            varchar not null,
+--		account_id UUID REFERENCES account(id),
+--        primary key (id)
+--);
+
+--create table  history (
+--       id UUID unique DEFAULT gen_random_uuid (),
+--       history        jsonb,
+--       account_id UUID REFERENCES account(id),
+--       primary key (id)
+--);
 
 --create table forum (
---        id             integer  not null auto_increment,
---        username        varchar not null,
---        title       varchar not null,
---        primary key (id)
+--       id UUID unique DEFAULT gen_random_uuid (),
+--       username        varchar not null,
+--       account_id UUID REFERENCES account(id),
+--       title       varchar not null,
+--       primary key (id)
 --);
-
---create table  chat_message (
---        id              integer not null auto_increment,
---        username        varchar not null,
---        message       varchar not null,
---        forum_id integer REFERENCES forum(id),
---        primary key (id)
+--
+--create table  item (
+--       id UUID unique DEFAULT gen_random_uuid (),
+--       username        varchar not null,
+--       message       varchar not null,
+--       account_id UUID REFERENCES account(id),
+--       forum_id integer REFERENCES forum(id),
+--       primary key (id)
 --);
+--
+-- SELECT jsonb_array_length(data) d from sample_table;
 
+--create or replace function
+--	return_few_first_elements(n int)
+--returns table(his int)
+--language plpgsql
+--as $$
+--begin
+--   return query select jsonb_array_length(data) d
+--	from sample_table;
+--
+--end; $$;
+--
+--select * from return_few_first_elements(5);

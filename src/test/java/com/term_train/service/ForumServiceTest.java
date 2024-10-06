@@ -6,8 +6,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.term_train.domain.forum.core.service.query.ForumQueryService;
-import com.term_train.domain.forum.core.service.command.ForumCommandService;
+import com.term_train.ddd.forum.domain.ForumFacade;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,17 +14,15 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import com.term_train.domain.forum.core.dto.ForumDto;
-import com.term_train.domain.forum.core.model.Forum;
-import com.term_train.domain.forum.infrastructure.forum.ForumRepository;
+import com.term_train.ddd.forum.domain.dto.ForumDto;
+import com.term_train.ddd.forum.domain.model.Forum;
+import com.term_train.ddd.forum.infrastructure.port.ForumRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class ForumServiceTest {
     
     @InjectMocks
-    private ForumCommandService forumCommandService;
-    @InjectMocks
-    private ForumQueryService forumQueryService;
+    private ForumFacade forumFacade;
     @Mock
     private ForumRepository forumRepository;
 
@@ -42,7 +39,7 @@ public class ForumServiceTest {
         when(forumRepository.findAll()).thenReturn(items);
         when(modelMapper.map(forum, ForumDto.class)).thenReturn(forumDto);
         
-        List<ForumDto> forumDtos = forumQueryService.findAllForums();
+        List<ForumDto> forumDtos = forumFacade.findAllForums();
         assertThat(forumDtos.size()).isEqualTo(1);
     }
 

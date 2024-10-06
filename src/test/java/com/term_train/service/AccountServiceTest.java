@@ -8,8 +8,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.UUID;
 
-import com.term_train.domain.user.core.service.query.AccountQueryService;
-import com.term_train.domain.user.core.service.command.AccountCommandService;
+import com.term_train.ddd.user.domain.AccountFacade;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,17 +16,15 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.term_train.domain.user.core.dto.AccountDto;
-import com.term_train.domain.user.core.model.Account;
-import com.term_train.domain.user.infrastructure.AccountRepository;
+import com.term_train.ddd.user.domain.dto.AccountDto;
+import com.term_train.ddd.user.domain.model.Account;
+import com.term_train.ddd.user.infrastructure.port.AccountRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class AccountServiceTest {
     
     @InjectMocks
-    private AccountCommandService userCommandService;
-    @InjectMocks
-    private AccountQueryService userQueryService;
+    private AccountFacade accountFacade;
 
     @Mock
     private AccountRepository userRepository;
@@ -41,7 +38,7 @@ public class AccountServiceTest {
 
         when(userRepository.saveAndFlush(any())).thenReturn(getUser(id));
 
-        String uuid = userCommandService.createUser(getUserDto());
+        String uuid = accountFacade.createUser(getUserDto());
 
         assertThat(uuid).isNotNull();
         assertThat(uuid).isEqualTo(id);
@@ -71,7 +68,7 @@ public class AccountServiceTest {
 
         when(userRepository.findByUsername(anyString())).thenReturn(getUser(id));
 
-        AccountDto userDto = userQueryService.verifyUserByUsername("example@gmail.com");
+        AccountDto userDto = accountFacade.verifyUserByUsername("example@gmail.com");
 
         assertThat(userDto).isNotNull();
         assertThat(userDto.getName()).isEqualTo("username");
@@ -83,7 +80,7 @@ public class AccountServiceTest {
         when(userRepository.findByUsername(anyString())).thenThrow( new RuntimeException("error"));
 
         assertThatThrownBy(() ->
-                userQueryService.verifyUserByUsername("example@gmail.com")).isInstanceOf(RuntimeException.class);
+                accountFacade.verifyUserByUsername("example@gmail.com")).isInstanceOf(RuntimeException.class);
 
     }
 }
